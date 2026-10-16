@@ -1,0 +1,1988 @@
+<title>실타래 실습실</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!-- 인터랙티브 요소: Lucian UX/UI Prompt (MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/) #352 #378 #228 #002 #086 #029 #255 #019 #039 #014 #008 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: 어두운 영화 같은 한 화면. 넓은 화면은 왼쪽 세로 목차(64px) + 오른쪽 본문, 휴대폰은 위쪽 진행 막대 + 펼침 목차.
+   첫 화면은 화면 가득한 SILTARAE 글자 뒤로 실 같은 빛줄기가 흐른다. 빛은 잉걸불(주홍)과 금색만 쓴다. 한 가지 테마로 고정. */
+:root{
+  color-scheme:dark;
+  --bg:#0A0908; --bg-2:#110F0D; --ink:#F3EEE8; --ink-2:rgba(243,238,232,.66); --ink-3:rgba(243,238,232,.40);
+  --ember:#FF6A3D; --gold:#F5B04A; --sage:#8FCB9B; --plum:#B78CF2; --rose:#F07FA0; --olive:#C7D16E;
+  --glass:rgba(255,255,255,.035); --glass-2:rgba(255,255,255,.06); --hair:rgba(255,255,255,.08); --hair-2:rgba(255,255,255,.15);
+  --f-display:"Archivo","Noto Sans KR",system-ui,sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* Lucian 요소가 읽는 토큰을 이 페이지의 어두운 색에 맞춤 */
+  --ux-page:#0A0908; --ux-surface:#16130F; --ux-surface-2:#1E1A16; --ux-surface-3:#2A2520;
+  --ux-ink:#F3EEE8; --ux-ink-2:rgba(243,238,232,.66); --ux-ink-3:rgba(243,238,232,.40);
+  --ux-line:rgba(255,255,255,.08); --ux-line-2:rgba(255,255,255,.16);
+  --ux-accent:#FF6A3D; --ux-accent-2:#F5B04A; --ux-accent-soft:rgba(255,106,61,.16); --ux-accent-ink:#0A0908;
+  --ux-mint:#8FCB9B; --ux-warn:#F5B04A; --ux-danger:#FF6B6B;
+  --ux-glass:rgba(255,255,255,.07); --ux-glass-line:rgba(255,255,255,.18);
+  --ux-shadow:rgba(0,0,0,.45); --ux-shadow-strong:rgba(0,0,0,.72);
+  --ux-grad:linear-gradient(120deg,#FF6A3D,#F5B04A 60%,#8FCB9B);
+  --ux-ease:cubic-bezier(.2,.8,.2,1); --ux-spring:cubic-bezier(.34,1.45,.64,1);
+}
+
+/* ---- Lucian 공통 베이스 (tokens.css의 .ux 규칙, 글꼴만 이 페이지 글꼴로) ---- */
+.ux,.ux *,.ux *::before,.ux *::after{box-sizing:border-box}
+.ux{font-family:var(--f-body);color:var(--ux-ink);-webkit-font-smoothing:antialiased;letter-spacing:-.01em;-webkit-tap-highlight-color:transparent;word-break:keep-all;overflow-wrap:break-word}
+:where(.ux) :is(button,input,textarea,select){font:inherit;color:inherit}
+:where(.ux) button{cursor:pointer}
+.ux :focus-visible{outline:2px solid var(--ux-accent);outline-offset:3px}
+.ux [hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.ux,.ux *,.ux *::before,.ux *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+/* ---- 바탕: 먹색 + 필름 입자 + 가장자리 어둡게 ---- */
+*{box-sizing:border-box}
+html{background:var(--bg)}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.7;letter-spacing:-.005em;word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 80px}
+body::after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+h1,h2,h3{margin:0;line-height:1.15;text-wrap:balance;letter-spacing:-.035em;font-weight:900}
+p{margin:0}
+a{color:var(--gold);text-underline-offset:3px}
+::selection{background:var(--ember);color:var(--bg)}
+.muted{color:var(--ink-2)} .faint{color:var(--ink-3)} .small{font-size:13.5px}
+.label{font:500 11.5px/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.label b{color:var(--ink);font-weight:500}
+mark{background:none;color:var(--gold);font-weight:700}
+
+/* ---- 레이아웃 ---- */
+.shell{max-width:1060px;margin:0 auto;padding-left:0}
+@media (min-width:1000px){.shell{padding-left:84px}}
+main{display:flex;flex-direction:column;gap:28px;padding-top:24px}
+
+/* ---- 세로 목차 (넓은 화면) ---- */
+.side{display:none}
+@media (min-width:1000px){
+  .side{display:flex;position:fixed;left:env(safe-area-inset-left,0px);top:0;bottom:0;width:64px;z-index:40;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 0;border-right:1px solid var(--hair);background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(8px)}
+  .topbar{display:none!important}
+}
+.mark{all:unset;cursor:pointer;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:900 17px/1 var(--f-body)}
+.mark:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+.side ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.side button{all:unset;cursor:pointer;position:relative;writing-mode:vertical-rl;text-orientation:sideways;transform:rotate(180deg);padding:10px 6px;font:500 11px/1 var(--f-mono);letter-spacing:.12em;color:var(--ink-3);transition:color .25s;white-space:nowrap}
+.side button:hover{color:var(--ink)}
+.side button:focus-visible{outline:2px solid var(--ember);outline-offset:2px;border-radius:4px}
+.side button[aria-current="step"]{color:var(--ember)}
+.side button[aria-current="step"]::after{content:"";position:absolute;right:-12px;top:10px;bottom:10px;width:2px;border-radius:2px;background:var(--ember)}
+.side button.done{color:var(--ink-2)}
+.side .mark{writing-mode:horizontal-tb;transform:none;width:38px;height:38px;padding:0;display:grid;place-items:center;border-radius:10px;background:var(--ink);color:var(--bg);font:900 17px/1 var(--f-body);letter-spacing:0}
+.side .mark:hover{color:var(--bg)}
+.side .nm{display:none;margin-top:8px}
+.side button[aria-current="step"] .nm,.side button:hover .nm,.side button:focus-visible .nm{display:inline}
+.side .count{font:500 11px/1.4 var(--f-mono);color:var(--ink-3);text-align:center}
+.side .count b{display:block;color:var(--ink);font-weight:500;font-size:14px}
+
+/* ---- 위쪽 막대 (휴대폰·태블릿) ---- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--bg)}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:12px max(16px,env(safe-area-inset-left,0px)) 0;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.topbar .in{display:flex;align-items:center;gap:12px;padding-bottom:10px}
+.topbar .now{flex:1;min-width:0;font:500 12px/1.3 var(--f-mono);letter-spacing:.1em;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .now b{color:var(--ink);font-weight:500}
+.menu-btn{all:unset;cursor:pointer;height:34px;padding:0 14px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--hair-2);font:500 12px/34px var(--f-mono);letter-spacing:.1em}
+.menu-btn:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+.progress{height:2px;background:var(--hair);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--ember),var(--gold));transition:width .8s var(--ux-spring)}
+.sheet-menu{position:fixed;inset:auto 0 0 0;z-index:60;max-height:80svh;overflow-y:auto;padding:18px max(16px,env(safe-area-inset-left,0px)) calc(18px + env(safe-area-inset-bottom,0px));background:#14110E;border-radius:24px 24px 0 0;box-shadow:0 -30px 60px rgba(0,0,0,.6);transform:translateY(105%);visibility:hidden;transition:transform .5s var(--ux-spring),visibility 0s .5s}
+.sheet-menu.open{transform:none;visibility:visible;transition:transform .5s var(--ux-spring)}
+@media (min-width:1000px){.sheet-menu,.scrim{display:none}}
+.scrim{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet-menu ol{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column}
+.sheet-menu button{all:unset;cursor:pointer;display:flex;gap:14px;align-items:baseline;width:100%;padding:12px 4px;border-bottom:1px solid var(--hair);font-size:16px;font-weight:700}
+.sheet-menu button span{font:500 12px/1 var(--f-mono);color:var(--ink-3);width:26px}
+.sheet-menu button[aria-current="step"]{color:var(--ember)}
+.sheet-menu button:focus-visible{outline:2px solid var(--ember)}
+
+/* ---- 미션 머리: 큰 번호 ---- */
+.head{position:relative;display:flex;flex-direction:column;gap:12px;padding:28px 0 6px}
+.head .num{position:absolute;right:-6px;top:-4px;font:900 clamp(120px,22vw,240px)/.8 var(--f-display);font-stretch:125%;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px var(--hair-2);pointer-events:none;user-select:none}
+.head h2{position:relative;font-size:clamp(30px,5.4vw,52px)}
+.head .lead{position:relative}
+.lead{font-size:17px;color:var(--ink-2);max-width:60ch}
+.eyebrow{position:relative;font:500 12px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ember)}
+
+/* ---- 판 ---- */
+.sheet{position:relative;background:linear-gradient(180deg,var(--glass-2),var(--glass));border-radius:22px;padding:24px;box-shadow:inset 0 0 0 1px var(--hair);display:flex;flex-direction:column;gap:16px;min-width:0}
+.sheet h3{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.spread{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+
+/* 민지의 노트: 손글씨 대신 인용 */
+.minji{position:relative;padding:18px 22px 18px 24px;border-radius:4px 20px 20px 4px;background:linear-gradient(90deg,rgba(245,176,74,.10),rgba(245,176,74,.02));box-shadow:inset 3px 0 0 var(--gold);display:flex;flex-direction:column;gap:10px}
+.minji::before{content:"민지의 노트";font:500 11px/1 var(--f-mono);letter-spacing:.16em;color:var(--gold)}
+.hand{font-size:17px;line-height:1.6;color:var(--ink);font-weight:500}
+.hand::before{content:"“";color:var(--gold)} .hand::after{content:"”";color:var(--gold)}
+.minji .spread .hand::before,.minji .spread .hand::after{content:none}
+.scribble{display:flex;flex-wrap:wrap;gap:6px}
+.scribble span{padding:4px 10px;border-radius:8px;background:var(--glass-2);font-size:13px;color:var(--ink-2)}
+
+/* 버튼 */
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;font-weight:700;font-size:14.5px;
+  background:var(--ink);color:var(--bg);transition:transform .35s var(--ux-spring),background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:scale(.95)}
+.btn:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+.btn.hot{background:var(--ember);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--hair-2)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1px var(--ink-3)}
+.btn.quiet{background:transparent;color:var(--ink-2);padding:0 12px;height:38px;font-weight:500}
+.btn.armed{background:#FF6B6B;color:var(--bg);box-shadow:none}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.nav-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-top:10px}
+.keys{font:500 11px/1 var(--f-mono);letter-spacing:.1em;color:var(--ink-3)}
+.keys kbd{display:inline-block;padding:3px 6px;border-radius:5px;box-shadow:inset 0 0 0 1px var(--hair-2);font:inherit;color:var(--ink-2)}
+@media (hover:none){.keys{display:none}}
+
+/* 입력 */
+label.f{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:500;color:var(--ink-2);min-width:0}
+.inp{font:inherit;font-size:15.5px;color:var(--ink);background:rgba(255,255,255,.04);border:0;border-radius:14px;padding:13px 15px;width:100%;min-width:0;box-shadow:inset 0 0 0 1px var(--hair);transition:box-shadow .3s var(--ux-ease),background .3s}
+.inp::placeholder{color:var(--ink-3)}
+.inp:focus{outline:none;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px var(--ember),0 0 0 4px rgba(255,106,61,.14)}
+textarea.inp{min-height:88px;resize:vertical;line-height:1.6}
+/* 왜? 사다리: 한 줄로 시작해서 글이 길면 늘어납니다 (지원하지 않는 브라우저는 두 줄) */
+textarea.inp.rung-in{min-height:0;resize:none;field-sizing:content}
+@supports not (field-sizing:content){textarea.inp.rung-in{min-height:5.2em}}
+
+details.why{border-top:1px solid var(--hair);padding-top:14px}
+details.why summary{cursor:pointer;font:500 11.5px/1 var(--f-mono);letter-spacing:.12em;color:var(--ink-3);list-style:none}
+details.why summary::before{content:"+ "}
+details.why[open] summary::before{content:"– "}
+details.why p{margin-top:10px;font-size:14px;color:var(--ink-2);max-width:64ch}
+details.more summary{cursor:pointer;font-weight:700;color:var(--ink);list-style:none}
+details.more summary::after{content:" ↓";color:var(--gold)}
+
+/* ---- 미션 0: 첫 화면 ---- */
+.hero{position:relative;width:100vw;margin-inline:calc(50% - 50vw);min-height:min(92svh,860px);display:flex;flex-direction:column;justify-content:space-between;padding:22px calc(50vw - 50%) 26px;overflow:hidden;isolation:isolate}
+@media (min-width:1000px){.hero{width:calc(100vw - 64px);margin-left:calc(50% - 50vw + 22px);margin-right:0;padding-left:calc(50vw - 50% - 22px);padding-right:calc(50vw - 50% - 42px)}}
+.hero .u352{position:absolute;inset:0;width:100%;height:100%;border-radius:0;box-shadow:none;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(120% 90% at 30% 40%,transparent 30%,rgba(10,9,8,.55) 70%,var(--bg) 100%),linear-gradient(180deg,transparent 60%,var(--bg))}
+.hero-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hero h1{white-space:nowrap;font:900 clamp(40px,calc((min(100vw,1060px) - 40px) / 6.3),168px)/.82 var(--f-display);font-stretch:125%;letter-spacing:-.05em;margin:auto 0 0;padding-top:12vh;text-shadow:0 10px 60px rgba(0,0,0,.4)}
+.hero h1 span{display:block;font:900 clamp(26px,4.6vw,56px)/1.15 var(--f-body);letter-spacing:-.045em;margin-top:18px}
+.hero h1 span em{font-style:normal;color:var(--ember)}
+.hero-low{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:24px;align-items:end;margin-top:30px}
+@media (max-width:760px){.hero-low{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:1000px){.hero h1{font-size:clamp(40px,calc((min(100vw - 84px,976px) - 30px) / 6.3),168px)}}
+.hero h1 span{white-space:normal}
+@media (max-width:600px){.hero-top .label:last-child{display:none}}
+.hero-side{display:flex;flex-direction:column;gap:12px;padding-top:16px;border-top:1px solid var(--hair-2)}
+.hero-side b{font:700 13px/1 var(--f-mono);letter-spacing:.12em}
+.hero-side p{font-size:14px;color:var(--ink-2)}
+.hint{display:flex;align-items:center;gap:10px;font:500 11px/1 var(--f-mono);letter-spacing:.16em;color:var(--ink-3)}
+.hint i{width:28px;height:1px;background:var(--ink-3)}
+
+.chapter{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:820px){.chapter{grid-template-columns:minmax(0,1fr)}}
+.chapter h2{font-size:clamp(28px,4.4vw,44px)}
+.stack{display:flex;flex-direction:column;gap:14px}
+.stats4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--hair-2)}
+@media (max-width:700px){.stats4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stats4 div{padding:18px 14px 6px 0;display:flex;flex-direction:column;gap:6px}
+.stats4 b{font:900 clamp(40px,6vw,64px)/.9 var(--f-display);font-stretch:112%;letter-spacing:-.04em}
+.stats4 span{font-size:13px;color:var(--ink-2)}
+.cta{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:20px 0}
+
+/* ---- #029 색 태그 입력 (메모 꺼내기) ---- */
+.u029{position:relative;width:100%}
+.u029-head{display:flex;align-items:baseline;justify-content:space-between;margin:0 4px 10px}
+.u029-head b{font-size:16px;font-weight:720;letter-spacing:-.02em}
+.u029-n{font-size:13px;font-weight:700;color:var(--ux-ink-3);font-variant-numeric:tabular-nums;transition:color .3s}
+.u029-n.full{color:var(--ux-warn)}
+.u029-field{display:flex;flex-wrap:wrap;align-content:flex-start;gap:7px;min-height:142px;padding:12px;border-radius:20px;background:var(--ux-surface);box-shadow:0 0 0 1.5px var(--ux-line-2);cursor:text;transition:box-shadow .3s var(--ux-ease)}
+.u029-field:focus-within{box-shadow:0 0 0 2px var(--ux-accent),0 0 0 6px var(--ux-accent-soft)}
+.u029-field.shake{animation:u029-shake .42s var(--ux-ease)}
+@keyframes u029-shake{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}}
+.u029-tag{display:inline-flex;align-items:center;gap:4px;min-height:34px;padding:4px 6px 4px 12px;border-radius:11px;background:color-mix(in srgb,var(--c) 16%,transparent);color:color-mix(in srgb,var(--c) 72%,var(--ux-ink));font-size:14px;font-weight:700;
+  animation:u029-pop .45s var(--ux-spring);transition:transform .3s var(--ux-ease),opacity .3s var(--ux-ease),box-shadow .2s}
+@keyframes u029-pop{from{transform:scale(.4);opacity:0}}
+.u029-tag.out{transform:scale(.4);opacity:0}
+.u029-tag.armed{box-shadow:0 0 0 2px var(--c);animation:u029-arm .3s var(--ux-ease)}
+@keyframes u029-arm{50%{transform:scale(1.08)}}
+.u029-x{width:22px;height:22px;flex:none;border:0;padding:0;border-radius:7px;background:none;color:inherit;display:grid;place-items:center;opacity:.7}
+.u029-x:hover{opacity:1;background:color-mix(in srgb,currentColor 15%,transparent)}
+.u029-x:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+.u029-x svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.u029-in{flex:1;min-width:150px;height:34px;border:0;outline:0;background:none;font-size:14.5px;color:var(--ux-ink)}
+.u029-in::placeholder{color:var(--ux-ink-3)}
+.u029-msg{height:18px;margin:8px 4px 10px;font-size:12.5px;color:var(--ux-ink-3);transition:color .3s}
+.u029-msg.warn{color:var(--ux-danger)}
+.u029-sg-row{display:flex;flex-wrap:wrap;gap:6px}
+.u029-sg{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:4px 12px 4px 9px;border:0;border-radius:999px;background:none;box-shadow:inset 0 0 0 1px var(--ux-line-2);font-size:13px;font-weight:620;color:var(--ux-ink-2);text-align:left;transition:transform .35s var(--ux-spring),opacity .3s,box-shadow .2s}
+.u029-sg:hover{box-shadow:inset 0 0 0 1px var(--ux-ink-3);color:var(--ux-ink)}
+.u029-sg:active{transform:scale(.92)}
+.u029-sg:focus-visible{outline:2px solid var(--ux-accent);outline-offset:2px}
+.u029-sg svg{width:12px;height:12px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.u029-sg.used{opacity:.3;pointer-events:none}
+.u029-in:focus-visible{outline:none}
+
+/* ---- #255 끌어 옮기는 칸반 (메모 나누기) ---- */
+.u255{position:relative;width:100%;border-radius:30px;background:var(--ux-surface-2);box-shadow:0 0 0 1px var(--ux-line),0 30px 60px -36px var(--ux-shadow-strong);color:var(--ux-ink);user-select:none}
+.u255-bd{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:6px;padding:14px;overflow-x:auto;min-height:340px;align-items:start}
+.u255-col{position:relative;min-height:300px;padding:8px 6px;border-radius:16px;background:color-mix(in srgb,var(--ux-surface) 55%,transparent);box-shadow:inset 0 0 0 1px var(--ux-line);transition:background .2s,box-shadow .2s}
+.u255-col.is-over{background:color-mix(in srgb,var(--ux-accent) 9%,var(--ux-surface));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--ux-accent) 45%,transparent)}
+.u255-ch{display:flex;align-items:center;gap:5px;padding:2px 4px 8px;font-size:12px;font-weight:850;color:var(--ux-ink-2)}
+.u255-ch i{width:7px;height:7px;border-radius:50%;flex:none}
+.u255-ch b{margin-left:auto;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ux-surface);font-size:10.5px;font-weight:850;line-height:18px;text-align:center;font-variant-numeric:tabular-nums;box-sizing:border-box}
+.u255-ch b.is-pop{animation:u255-pop .4s cubic-bezier(.3,1.7,.5,1)}
+@keyframes u255-pop{40%{transform:scale(1.35)}}
+.u255-cd{position:relative;margin-bottom:6px;padding:9px;border-radius:11px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line),0 2px 4px -2px var(--ux-shadow-strong);cursor:grab;touch-action:none;transition:box-shadow .2s,transform .2s}
+.u255-cd:focus-visible{outline:2px solid var(--ux-accent);outline-offset:2px}
+.u255-cd.is-picked{box-shadow:0 0 0 2px var(--ux-accent),0 2px 4px -2px var(--ux-shadow-strong)}
+.u255-cd b{display:block;font-size:12.5px;line-height:1.4;font-weight:700}
+.u255-cd span{display:inline-block;margin-top:6px;padding:1px 7px;border-radius:999px;font-size:10px;font-weight:850;color:#fff}
+.u255-cd span.none{background:var(--ux-surface-3);color:var(--ux-ink-3)}
+.u255-cd.is-lift{position:absolute;z-index:10;margin:0;cursor:grabbing;transform:rotate(3deg) scale(1.04);box-shadow:0 0 0 1px var(--ux-line),0 18px 30px -12px var(--ux-shadow-strong);transition:transform .2s,box-shadow .2s}
+.u255-cd.is-land{position:absolute;z-index:10;margin:0;transition:left .28s cubic-bezier(.3,1.2,.5,1),top .28s cubic-bezier(.3,1.2,.5,1),transform .28s}
+.u255-ph{margin-bottom:6px;border-radius:11px;border:1.5px dashed color-mix(in srgb,var(--ux-accent) 50%,transparent);background:color-mix(in srgb,var(--ux-accent) 6%,transparent);transition:height .2s cubic-bezier(.3,1.2,.5,1)}
+@media (prefers-reduced-motion: reduce){.u255-cd,.u255-cd.is-land,.u255-ph{transition:none}.u255-ch b.is-pop{animation:none}}
+
+/* ---- #019 칩 다중 선택 ---- */
+.u019{position:relative;width:100%}
+.u019-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:12px}
+.u019-head b{display:block;font-size:17px;font-weight:760;letter-spacing:-.03em}
+.u019-head small{display:block;margin-top:4px;font-size:13px;color:var(--ux-ink-3)}
+.u019-cnt{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ux-ink-2);font-variant-numeric:tabular-nums;transition:color .3s var(--ux-ease)}
+.u019-dots{display:flex;gap:3px}
+.u019-dots i{width:7px;height:7px;border-radius:50%;background:var(--ux-line-2);transition:background-color .3s var(--ux-ease),transform .4s var(--ux-spring)}
+.u019-dots i.on{background:var(--ux-accent);transform:scale(1.15)}
+.u019-list{display:flex;flex-wrap:wrap;align-content:center;gap:8px}
+.u019-chip{display:inline-flex;align-items:center;height:42px;padding:0 16px;border:0;border-radius:999px;background:var(--ux-surface);color:var(--ux-ink-2);font-size:14.5px;font-weight:640;
+  box-shadow:inset 0 0 0 1px var(--ux-line-2);transition:background-color .35s var(--ux-ease),color .3s var(--ux-ease),box-shadow .3s var(--ux-ease),padding .45s var(--ux-spring),transform .4s var(--ux-spring)}
+.u019-chip:hover{color:var(--ux-ink);box-shadow:inset 0 0 0 1px var(--ux-ink-3)}
+.u019-chip:active{transform:scale(.94)}
+.u019-chip:focus-visible{outline:2px solid var(--ux-accent);outline-offset:3px}
+.u019-chip i{display:grid;place-items:center;width:0;height:18px;margin-right:0;overflow:hidden;opacity:0;transition:width .45s var(--ux-spring),margin .45s var(--ux-spring),opacity .25s var(--ux-ease)}
+.u019-chip svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.u019-chip[aria-pressed="true"]{background:var(--sel,var(--ux-ink));color:var(--ux-page);box-shadow:0 10px 18px -12px var(--ux-shadow-strong);padding-left:12px}
+.u019-chip[aria-pressed="true"] i{width:18px;margin-right:6px;opacity:1}
+.u019-chip.is-no{animation:u019-no .4s var(--ux-ease)}
+@keyframes u019-no{20%{transform:translateX(-5px)}45%{transform:translateX(4px)}70%{transform:translateX(-2px)}}
+
+/* ---- #039 미끄러지는 알약 탭 ---- */
+.u039{position:relative;width:100%}
+.u039-tabs{position:relative;display:flex;padding:5px;border-radius:999px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line)}
+.u039-pill{position:absolute;left:0;top:5px;bottom:5px;width:var(--w,80px);border-radius:999px;background:var(--ux-ink);transform:translateX(var(--x,5px));box-shadow:0 8px 16px -10px var(--ux-shadow-strong);transition:transform .5s var(--ux-spring),width .5s var(--ux-spring)}
+.u039-tab{position:relative;flex:1;height:42px;border:0;padding:0 8px;border-radius:999px;background:none;font-size:14px;font-weight:680;color:var(--ux-ink-2);white-space:nowrap;transition:color .35s var(--ux-ease)}
+.u039-tab[aria-selected="true"]{color:var(--ux-page)}
+.u039-tab:focus-visible{outline:2px solid var(--ux-accent);outline-offset:2px}
+.u039-panel{position:relative;margin-top:14px;overflow:hidden;border-radius:22px}
+.u039-list{display:flex;flex-direction:column;gap:12px}
+.u039-row{transition:transform .55s var(--ux-spring),opacity .35s var(--ux-ease)}
+
+/* ---- #014 할 일 체크리스트 ---- */
+.u014{position:relative;width:100%;padding:22px 22px 14px;border-radius:28px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line),0 30px 60px -36px var(--ux-shadow-strong)}
+.u014-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.u014-head b{display:block;font-size:20px;font-weight:760;letter-spacing:-.035em}
+.u014-sub{position:relative;display:block;width:240px;height:19px;margin-top:4px;overflow:hidden;white-space:nowrap;font-size:13.5px;color:var(--ux-ink-3)}
+.u014-sub span{display:block;line-height:19px;transition:transform .5s var(--ux-spring),opacity .3s var(--ux-ease)}
+.u014-sub span+span{position:absolute;left:0;top:0;transform:translateY(100%);opacity:0;color:var(--ux-mint);font-weight:650}
+.u014.is-all .u014-sub span:first-child{transform:translateY(-100%);opacity:0}
+.u014.is-all .u014-sub span+span{transform:none;opacity:1}
+.u014-ring{position:relative;width:48px;height:48px;flex:none}
+.u014-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.u014-ring circle{fill:none;stroke-width:5;stroke-linecap:round}
+.u014-ring .bg{stroke:var(--ux-surface-3)}
+.u014-ring .fg{stroke:var(--ux-accent);stroke-dasharray:125.7;stroke-dashoffset:calc(125.7 * (1 - var(--p,0)));transition:stroke-dashoffset .7s var(--ux-spring),stroke .4s var(--ux-ease)}
+.u014.is-all .u014-ring .fg{stroke:var(--ux-mint)}
+.u014-num{position:absolute;inset:0;display:grid;place-items:center;font-size:12.5px;font-weight:760;font-variant-numeric:tabular-nums;transition:opacity .3s,transform .5s var(--ux-spring)}
+.u014-done{position:absolute;inset:9px;border-radius:50%;display:grid;place-items:center;background:var(--ux-mint);color:var(--ux-accent-ink);transform:scale(0);transition:transform .55s var(--ux-spring)}
+.u014-done svg{width:16px;height:16px;transform:none;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.u014.is-all .u014-num{opacity:0;transform:scale(.5)}
+.u014.is-all .u014-done{transform:none}
+.u014-list{margin:0;padding:0;list-style:none}
+.u014-row{position:relative;display:flex;align-items:center;gap:14px;padding:12px 4px;cursor:pointer;user-select:none;-webkit-user-select:none;border-top:1px solid var(--ux-line)}
+.u014-in{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.u014-box{position:relative;width:26px;height:26px;flex:none;border-radius:50%;box-shadow:inset 0 0 0 2px var(--ux-line-2);transition:box-shadow .3s var(--ux-ease),transform .45s var(--ux-spring)}
+.u014-box::before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(140deg,var(--ux-accent),var(--ux-accent-2));transform:scale(0);transition:transform .45s var(--ux-spring)}
+.u014-box svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#fff;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.u014-box path{stroke-dasharray:18;stroke-dashoffset:18;transition:stroke-dashoffset .35s var(--ux-ease)}
+.u014-row:hover .u014-box{box-shadow:inset 0 0 0 2px var(--ux-accent)}
+.u014-row:active .u014-box{transform:scale(.86)}
+.u014-in:focus-visible+.u014-box{outline:2px solid var(--ux-accent);outline-offset:3px}
+.u014-in:checked+.u014-box{box-shadow:none}
+.u014-in:checked+.u014-box::before{transform:scale(1)}
+.u014-in:checked+.u014-box path{stroke-dashoffset:0;transition-delay:.12s}
+.u014-t{position:relative;font-size:15.5px;font-weight:600;letter-spacing:-.02em;color:var(--ux-ink);transition:color .4s var(--ux-ease)}
+.u014-t::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;border-radius:2px;background:var(--ux-ink-3);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ux-ease)}
+.u014-in:checked~.u014-t{color:var(--ux-ink-3)}
+.u014-in:checked~.u014-t::after{transform:scaleX(1);transition-delay:.18s}
+.u014-tag{margin-left:auto;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:650;background:color-mix(in srgb,var(--k) 15%,transparent);color:var(--k);white-space:nowrap;transition:opacity .4s var(--ux-ease)}
+.u014-in:checked~.u014-tag{opacity:.4}
+
+/* ---- #008 복사 버튼 (여러 줄 코드 상자로) ---- */
+.u008{position:relative;width:100%}
+.u008-box{position:relative;display:flex;align-items:flex-start;gap:8px;width:100%;padding:12px 8px 12px 18px;border-radius:18px;background:var(--ux-surface-2);box-shadow:0 0 0 1px var(--ux-line-2),0 18px 32px -24px var(--ux-shadow-strong);transition:box-shadow .45s var(--ux-ease)}
+.u008-code{position:relative;flex:1;min-width:0;max-height:300px;overflow:auto;margin:0;padding:4px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.6;white-space:pre;color:var(--ux-ink);word-break:normal;overflow-wrap:normal}
+.u008-code.wrap{white-space:pre-wrap}
+.u008-code::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,color-mix(in srgb,var(--ux-mint) 30%,transparent) 50%,transparent 80%);transform:translateX(-110%);pointer-events:none}
+.u008.is-copied .u008-code::after{animation:u008-sweep .7s var(--ux-ease)}
+@keyframes u008-sweep{to{transform:translateX(110%)}}
+.u008-btn{position:relative;flex:none;width:46px;height:46px;border:0;padding:0;border-radius:13px;background:var(--ux-surface);color:var(--ux-ink-2);display:grid;place-items:center;transition:background-color .35s var(--ux-ease),color .35s var(--ux-ease),transform .45s var(--ux-spring)}
+.u008-btn:hover{background:var(--ux-surface-3);color:var(--ux-ink)}
+.u008-btn:active{transform:scale(.88)}
+.u008-btn:focus-visible{outline:2px solid var(--ux-accent);outline-offset:3px}
+.u008-btn svg{position:absolute;width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:opacity .25s var(--ux-ease),transform .5s var(--ux-spring)}
+.u008-ok{opacity:0;transform:scale(.4) rotate(-30deg)}
+.u008-ok path{stroke-width:2.6;stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .4s var(--ux-ease) .1s}
+.u008.is-copied .u008-btn{background:var(--ux-mint);color:var(--ux-accent-ink)}
+.u008.is-copied .u008-cp{opacity:0;transform:scale(.4) rotate(30deg)}
+.u008.is-copied .u008-ok{opacity:1;transform:none}
+.u008.is-copied .u008-ok path{stroke-dashoffset:0}
+.u008.is-copied .u008-box{box-shadow:0 0 0 1.5px var(--ux-mint),0 0 0 6px color-mix(in srgb,var(--ux-mint) 16%,transparent),0 18px 32px -24px var(--ux-shadow-strong)}
+.u008-tip{position:absolute;right:-6px;top:-44px;padding:7px 12px;border-radius:10px;background:var(--ux-ink);color:var(--ux-page);font-size:13px;font-weight:650;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(8px) scale(.8);transform-origin:80% 100%;transition:opacity .25s var(--ux-ease),transform .5s var(--ux-spring)}
+.u008-tip::after{content:"";position:absolute;right:24px;bottom:-5px;width:10px;height:10px;background:inherit;border-radius:2px;transform:rotate(45deg)}
+.u008.is-copied .u008-tip{opacity:1;transform:none}
+
+/* ---- 미션 2: 회사 표 ---- */
+.grid-wrap{overflow-x:auto;border-radius:16px;box-shadow:0 0 0 1px var(--ux-line)}
+table.mx{border-collapse:separate;border-spacing:0;font-size:13px;min-width:640px;width:100%}
+table.mx th,table.mx td{border-bottom:1px solid var(--ux-line);border-right:1px solid var(--ux-line);padding:8px;vertical-align:top;text-align:left}
+table.mx th{font-size:12px;color:var(--ux-ink-3);font-weight:700;background:var(--ux-surface-2)}
+table.mx tr > *:first-child{position:sticky;left:0;background:var(--ux-surface);font-weight:700;color:var(--ux-ink);white-space:nowrap}
+.board-hint{margin:-6px 0 -8px;text-align:right}
+table.mx thead tr > *:first-child{background:var(--ux-surface-2)}
+.pill{display:block;padding:4px 8px;border-radius:8px;background:var(--ux-surface-2);margin-bottom:4px;line-height:1.4}
+.pill.u-애매{box-shadow:inset 3px 0 0 var(--ux-warn)} .pill.u-모름{box-shadow:inset 3px 0 0 var(--ux-danger)}
+
+/* ---- 미션 3: 한 장씩 보기 ---- */
+.deck{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:820px){.deck{grid-template-columns:minmax(0,1fr)}}
+.card-note{position:relative;padding:26px 24px 20px;border-radius:6px 26px 26px 26px;background:color-mix(in srgb,var(--ux-accent-2) 18%,var(--ux-surface));min-height:150px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;animation:note-in .5s var(--ux-spring)}
+@keyframes note-in{from{transform:translateY(14px) rotate(-2deg);opacity:0}}
+.card-note .t{font-family:var(--f-hand);font-size:34px;line-height:1.15}
+.card-note .meta{display:flex;justify-content:space-between;font:700 12px/1 var(--f-mono);color:var(--ux-ink-2)}
+.sure{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sure button{all:unset;cursor:pointer;text-align:center;padding:14px 6px;border-radius:16px;background:var(--ux-surface);box-shadow:inset 0 0 0 1.5px var(--ux-line-2);font-weight:700;transition:transform .4s var(--ux-spring),background .3s,color .3s}
+.sure button small{display:block;font-weight:500;font-size:12px;color:var(--ux-ink-3)}
+.sure button:active{transform:scale(.94)}
+.sure button:focus-visible{outline:2px solid var(--ux-accent);outline-offset:3px}
+.sure button[aria-pressed="true"]{background:var(--c);color:#fff;box-shadow:0 10px 18px -12px var(--ux-shadow-strong);transform:translateY(-2px)}
+.sure button[aria-pressed="true"] small{color:rgba(255,255,255,.8)}
+.beads{display:flex;flex-wrap:wrap;gap:6px}
+@media (max-width:420px){.beads{gap:4px}.beads .bead{width:12px;height:12px}}
+.bead{all:unset;cursor:pointer;width:14px;height:14px;border-radius:50%;background:var(--ux-surface-3);transition:transform .35s var(--ux-spring)}
+.bead:hover{transform:scale(1.3)}
+.bead:focus-visible{outline:2px solid var(--ux-accent);outline-offset:2px}
+.bead.확실{background:var(--ux-mint)} .bead.애매{background:var(--ux-warn)} .bead.모름{background:var(--ux-danger)}
+.bead.cur{box-shadow:0 0 0 3px var(--ux-page),0 0 0 5px var(--ux-ink)}
+.big{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:24px;overflow:hidden;background:var(--ux-ink);color:var(--ux-page)}
+.big > div{padding:20px;display:flex;flex-direction:column;gap:4px}
+.big > div + div{border-left:1px solid color-mix(in srgb,var(--ux-page) 16%,transparent)}
+.big .num{font:500 44px/1 var(--f-mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.big .num small{font-size:16px;letter-spacing:0}
+.big p{font-size:13px;color:color-mix(in srgb,var(--ux-page) 72%,transparent)}
+@media (max-width:560px){.big{grid-template-columns:minmax(0,1fr)}.big > div + div{border-left:0;border-top:1px solid color-mix(in srgb,var(--ux-page) 16%,transparent)}}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;grid-template-columns:104px minmax(0,1fr) 52px;gap:12px;align-items:center;font-size:14px}
+.bar-row .track{height:12px;border-radius:6px;background:var(--ux-surface-3);overflow:hidden;display:flex}
+.bar-row .track i{display:block;height:100%;transition:width .7s var(--ux-spring)}
+.b-모름{background:var(--ux-danger)} .b-애매{background:var(--ux-warn)} .b-확실{background:var(--ux-mint)}
+.bar-row .v{font:600 13px/1 var(--f-mono);text-align:right}
+.legend{display:flex;gap:12px;font-size:12px;color:var(--ux-ink-3)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+
+/* ---- 미션 4·5 ---- */
+.ladder{display:flex;flex-direction:column;gap:0;counter-reset:rung}
+.rung{position:relative;padding:4px 0 18px 46px}
+.rung::before{counter-increment:rung;content:"";position:absolute;left:12px;top:8px;width:16px;height:16px;border-radius:50%;background:var(--ux-surface);box-shadow:0 0 0 3px var(--c,var(--ux-ink-3))}
+.rung::after{content:"";position:absolute;left:19px;top:30px;bottom:0;width:2px;background:repeating-linear-gradient(var(--ux-line-2) 0 5px,transparent 5px 9px)}
+.rung:last-child::after{display:none}
+.rung.root::before{background:var(--ux-accent);box-shadow:0 0 0 3px var(--ux-accent),0 0 0 8px var(--ux-accent-soft)}
+.types{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.types{grid-template-columns:minmax(0,1fr)}}
+.type{all:unset;cursor:pointer;position:relative;padding:16px;border-radius:20px;background:var(--ux-surface-2);display:flex;flex-direction:column;gap:4px;transition:transform .45s var(--ux-spring),background .3s,color .3s}
+.type:hover{transform:translateY(-3px)}
+.type:focus-visible{outline:2px solid var(--ux-accent);outline-offset:3px}
+.type b{font-size:17px}
+.type span{font-size:13px;color:var(--ux-ink-2)}
+.type[aria-pressed="true"]{background:var(--ux-ink);color:var(--ux-page)}
+.type[aria-pressed="true"] span{color:color-mix(in srgb,var(--ux-page) 75%,transparent)}
+.dir{padding:14px 16px;border-radius:16px;background:var(--ux-accent-soft);font-size:14.5px;animation:note-in .45s var(--ux-spring)}
+.sentence{font-size:19px;line-height:2;padding:20px 22px;border-radius:22px;background:var(--ux-ink);color:var(--ux-page)}
+.sentence .slot{border-bottom:2px solid var(--ux-accent-2);padding:0 3px}
+.sentence .slot.empty{color:color-mix(in srgb,var(--ux-page) 45%,transparent);border-bottom-style:dashed}
+.check{display:flex;gap:8px;font-size:14px;align-items:flex-start}
+.check.ok{color:var(--ux-mint)} .check.warn{color:var(--ux-warn)}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:4px}
+.msg{padding:11px 15px;border-radius:20px;max-width:85%;white-space:pre-wrap;font-size:14.5px;animation:note-in .4s var(--ux-spring)}
+.msg.ai{background:var(--ux-surface-2);align-self:flex-start;border-bottom-left-radius:6px}
+.msg.me{background:var(--ux-ink);color:var(--ux-page);align-self:flex-end;border-bottom-right-radius:6px}
+.compose{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}
+
+/* ---- 미션 6 ---- */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.flow > *{position:relative}
+.flow > *:not(:last-child)::after{content:"";position:absolute;right:-20px;top:38px;width:16px;height:2px;background:var(--ux-grad)}
+@media (max-width:760px){.flow{grid-template-columns:minmax(0,1fr);gap:16px}.flow > *:not(:last-child)::after{display:none}}
+.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.roles{grid-template-columns:minmax(0,1fr)}}
+.role-tag{display:inline-block;padding:3px 10px;border-radius:999px;font:700 11.5px/1.4 var(--f-body);color:#fff;background:var(--c);align-self:flex-start}
+.blocks4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.blocks4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.blocks4 div{padding:12px;border-radius:16px;background:var(--ux-surface-2);font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+
+/* ---- 미션 7·8 ---- */
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;counter-reset:st}
+ol.steps li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;counter-increment:st}
+ol.steps li::before{content:counter(st);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--ux-ink);color:var(--ux-page);font:700 13px/1 var(--f-mono)}
+ol.steps li > div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.path{font:600 12.5px/1.4 var(--f-mono);background:var(--ux-surface-2);border-radius:7px;padding:2px 7px}
+.status{font-size:13.5px;color:var(--ux-ink-2);min-height:1em}
+.record{white-space:pre-wrap;font-size:14px;line-height:1.75;padding:20px;border-radius:20px;background:var(--ux-surface-2);max-height:480px;overflow-y:auto}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* ---- #352 소용돌이치는 흐름장 (첫 화면 전체로) ---- */
+.u352{position:relative;width:340px;height:330px;border-radius:30px;overflow:hidden;background:#0A0908;box-shadow:0 0 0 1px var(--ux-line),0 30px 60px -36px var(--ux-shadow-strong);transition:background-color .6s}
+.u352-cv{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:pointer}
+.u352-nm{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:22px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-size:11.5px;font-weight:750;pointer-events:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* ---- #378 입자로 모이는 글자 ---- */
+.u378{position:relative;width:100%;height:340px;border-radius:30px;overflow:hidden;background:radial-gradient(90% 70% at 50% 45%,#2A1810,#0A0806 70%);box-shadow:0 0 0 1px var(--ux-line),0 30px 60px -36px var(--ux-shadow-strong)}
+.u378-cv{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:pointer}
+.u378-cap{position:absolute;left:18px;bottom:16px;font:500 11px/1 var(--f-mono);letter-spacing:.14em;color:rgba(255,255,255,.45);pointer-events:none}
+
+/* ---- #228 커서 빛이 번지는 카드 테두리 ---- */
+.u228{position:relative;width:100%;border-radius:30px;overflow:hidden;background:#0D0B09;box-shadow:0 0 0 1px var(--ux-line),0 30px 60px -36px var(--ux-shadow-strong);color:#F3EEE8;padding:18px;--x:-500px;--y:-500px;--o:0}
+.u228-gd{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.u228-gd{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.u228-c{all:unset;box-sizing:border-box;cursor:pointer;position:relative;border-radius:18px;padding:1.5px;min-height:170px;display:flex;background:radial-gradient(160px circle at var(--cx) var(--cy),rgba(255,106,61,calc(var(--o) * 1)),rgba(245,176,74,calc(var(--o) * .5)) 40%,transparent 70%),rgba(255,255,255,.08)}
+.u228-c:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+.u228-in{position:relative;flex:1;border-radius:16.5px;background:radial-gradient(220px circle at var(--cx) var(--cy),rgba(255,106,61,calc(var(--o) * .14)),transparent 60%),#15120F;padding:16px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.u228-ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);font:500 11px/1 var(--f-mono);color:var(--gold)}
+.u228-in b{margin-top:auto;font-size:17px;font-weight:800}
+.u228-in span.d{font-size:12.5px;font-weight:500;color:#A39A90;word-break:keep-all}
+
+/* ---- #002 자석 화살표 버튼 (다음 미션) ---- */
+.u002{--bg:#F3EEE8;--fg:#0A0908;--blob:linear-gradient(135deg,#FF6A3D,#F5B04A 60%,#8FCB9B);position:relative;display:grid;place-items:center;padding:14px 0}
+.u002-mag{transition:translate .9s var(--ux-spring)}
+.u002-btn{position:relative;display:flex;align-items:center;gap:18px;height:76px;padding:0 10px 0 32px;border:0;border-radius:999px;background:var(--bg);color:var(--fg);overflow:hidden;isolation:isolate;
+  box-shadow:0 24px 40px -24px rgba(255,106,61,.5),0 0 0 1px color-mix(in srgb,var(--fg) 8%,transparent);transition:transform .6s var(--ux-spring),box-shadow .6s var(--ux-ease)}
+.u002-btn:hover{box-shadow:0 30px 52px -22px rgba(255,106,61,.7),0 0 0 1px transparent}
+.u002-btn:active{transform:scale(.96)}
+.u002-btn:focus-visible{outline:2px solid var(--ux-accent);outline-offset:5px}
+.u002-fill{position:absolute;inset:0;z-index:-1;background:var(--blob);clip-path:circle(28px at calc(100% - 38px) 50%);transition:clip-path .8s var(--ux-ease)}
+.u002-btn:hover .u002-fill,.u002-btn:focus-visible .u002-fill{clip-path:circle(160% at calc(100% - 38px) 50%)}
+.u002-txt{position:relative;overflow:hidden;padding:5px 0;font-size:19px;font-weight:700;letter-spacing:-.03em;white-space:nowrap;transition:translate .7s var(--ux-spring),color .5s var(--ux-ease)}
+.u002-btn:hover .u002-txt{color:#0A0908}
+.u002-txt span{display:block;transition:transform .6s var(--ux-spring),opacity .35s var(--ux-ease)}
+.u002-txt span+span{position:absolute;left:0;top:5px;transform:translateY(130%);opacity:0}
+.u002[data-state="go"] .u002-txt span:first-child{transform:translateY(-130%);opacity:0}
+.u002[data-state="go"] .u002-txt span+span{transform:none;opacity:1}
+.u002-orb{position:relative;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#0A0908;overflow:hidden;flex:none;transition:translate .7s var(--ux-spring)}
+.u002-orb svg{position:absolute;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.u002-orb svg:last-child{transform:translateX(-46px)}
+.u002[data-state="go"] .u002-orb svg:first-child{animation:u002-out .55s var(--ux-ease) forwards}
+.u002[data-state="go"] .u002-orb svg:last-child{animation:u002-in .6s var(--ux-spring) .28s forwards}
+@keyframes u002-out{to{transform:translateX(46px)}}
+@keyframes u002-in{to{transform:none}}
+.u002-glow{position:absolute;left:50%;top:50%;width:min(300px,100%);height:110px;transform:translate(-50%,-50%);border-radius:50%;background:var(--blob);filter:blur(36px);opacity:0;z-index:-1;transition:opacity .7s var(--ux-ease);pointer-events:none}
+.u002:hover .u002-glow{opacity:.35}
+@media (max-width:420px){.u002-btn{height:64px;padding-left:22px;gap:12px}.u002-txt{font-size:16px}.u002-orb{width:46px;height:46px}}
+
+/* ---- #086 흘러나오는 AI 답변 (해석 코치) ---- */
+.u086{position:relative;width:100%;display:flex;flex-direction:column;border-radius:26px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line),0 30px 60px -36px var(--ux-shadow-strong);overflow:hidden}
+.u086-log{display:flex;flex-direction:column;gap:14px;padding:20px 18px 10px;max-height:460px;min-height:160px;overflow-y:auto}
+.u086-q{align-self:flex-end;max-width:80%;padding:10px 14px;border-radius:18px 18px 6px 18px;background:var(--ux-surface-2);font-size:14px;font-weight:650;line-height:1.5;white-space:pre-wrap;animation:u086-pop .45s var(--ux-spring)}
+@keyframes u086-pop{from{opacity:0;transform:translateY(10px) scale(.95)}}
+.u086-a{display:flex;gap:10px}
+.u086-av{width:30px;height:30px;flex:none;border-radius:10px;background:var(--ux-grad);display:grid;place-items:center}
+.u086-av::after{content:"";width:12px;height:12px;border-radius:3px;background:#fff;transform:rotate(45deg)}
+.u086.is-gen .u086-av{animation:u086-glow 1.6s ease-in-out infinite}
+@keyframes u086-glow{50%{box-shadow:0 0 0 5px var(--ux-accent-soft)}}
+.u086-body{flex:1;min-width:0;font-size:14.5px;line-height:1.7;color:var(--ux-ink);white-space:pre-wrap}
+.u086-w{animation:u086-w .45s var(--ux-ease) backwards}
+@keyframes u086-w{from{opacity:0;filter:blur(3px)}}
+.u086-caret{display:inline-block;width:8px;height:15px;margin-left:2px;border-radius:2px;vertical-align:-2px;background:var(--ux-accent);animation:u086-c 1s steps(1) infinite}
+@keyframes u086-c{50%{opacity:0}}
+.u086-dots{display:inline-flex;gap:4px;padding:10px 12px;border-radius:14px;background:var(--ux-surface-2)}
+.u086-dots i{width:7px;height:7px;border-radius:50%;background:var(--ux-ink-3);animation:u086-b 1.1s ease-in-out infinite}
+.u086-dots i:nth-child(2){animation-delay:.15s}.u086-dots i:nth-child(3){animation-delay:.3s}
+@keyframes u086-b{0%,60%,100%{transform:none;opacity:.45}30%{transform:translateY(-5px);opacity:1}}
+.u086-stop{display:block;margin-top:4px;font-size:12px;font-weight:700;color:var(--ux-ink-3)}
+.u086-sug{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
+.u086-sug button{min-height:34px;padding:4px 12px;border:0;border-radius:999px;background:var(--ux-surface-2);font-size:12.5px;font-weight:700;color:var(--ux-ink-2);text-align:left;transition:background-color .2s,transform .3s var(--ux-spring)}
+.u086-sug button:hover{background:var(--ux-surface-3);color:var(--ux-ink)}
+.u086-sug button:active{transform:scale(.95)}
+.u086-sug button:disabled{opacity:.4;cursor:default}
+.u086-bar{display:flex;align-items:flex-end;gap:8px;margin:0 12px 12px;padding:6px 6px 6px 16px;border-radius:22px;box-shadow:inset 0 0 0 1.5px var(--ux-line-2);font-size:13.5px;color:var(--ux-ink-3)}
+.u086-bar textarea{flex:1;min-width:0;min-height:36px;max-height:140px;resize:none;border:0;outline:0;background:none;padding:8px 0;font-size:14.5px;line-height:1.45;color:var(--ux-ink)}
+.u086-bar textarea::placeholder{color:var(--ux-ink-3)}
+.u086-bar:focus-within{box-shadow:inset 0 0 0 1.5px var(--ux-accent)}
+.u086-ctl{height:36px;padding:0 14px;border:0;border-radius:18px;display:inline-flex;align-items:center;gap:6px;background:var(--ux-ink);color:var(--ux-page);font-size:13px;font-weight:750;flex:none;transition:transform .3s var(--ux-spring),opacity .3s}
+.u086-ctl:active{transform:scale(.94)}
+.u086-ctl[aria-disabled="true"]{opacity:.35}
+.u086-ctl i{width:10px;height:10px;border-radius:2px;background:currentColor}
+.u086-ctl svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.u086-sug button:focus-visible,.u086-ctl:focus-visible{outline:2px solid var(--ux-accent);outline-offset:2px}
+
+.card-note{background:linear-gradient(160deg,rgba(245,176,74,.16),rgba(255,106,61,.06));box-shadow:inset 0 0 0 1px rgba(245,176,74,.25);border-radius:4px 24px 24px 24px}
+.card-note .t{font:700 clamp(22px,3vw,30px)/1.35 var(--f-body);letter-spacing:-.03em}
+.big{background:linear-gradient(135deg,rgba(255,106,61,.16),rgba(245,176,74,.06));box-shadow:inset 0 0 0 1px rgba(255,106,61,.25);color:var(--ink)}
+.big > div + div{border-color:var(--hair)}
+.oneline{background:linear-gradient(135deg,rgba(255,106,61,.14),rgba(245,176,74,.05));box-shadow:inset 0 0 0 1px rgba(255,106,61,.22);color:var(--ink);border-radius:20px;padding:20px 22px;font-size:16.5px;line-height:1.75}
+.oneline b{color:var(--gold)}
+/* ---- 읽기 쉽게: 어두운 틀(위치·제목) + 밝은 작업판(할 일) ---- */
+:root{--ink-2:rgba(243,238,232,.86);--ink-3:rgba(243,238,232,.66);--hair:rgba(255,255,255,.12);--hair-2:rgba(255,255,255,.24);--bg:#141210}
+html,body{background:#141210}
+body{font-size:17px;line-height:1.75}
+.small{font-size:15px}
+.label{font:700 13px/1.4 var(--f-body);letter-spacing:.04em;text-transform:none;color:var(--ink-2)}
+.eyebrow{font:700 14px/1 var(--f-body);letter-spacing:.06em}
+.lead{font-size:19px;line-height:1.7;color:var(--ink-2)}
+.head h2{font-size:clamp(32px,5.6vw,54px)}
+.head .num{-webkit-text-stroke:1px rgba(255,255,255,.14)}
+details.why summary{font:600 14px/1.4 var(--f-body);letter-spacing:0;color:var(--ink-2)}
+details.why p{font-size:16px}
+.hero-side p{font-size:16px}
+.hint{font:600 13px/1 var(--f-body);letter-spacing:.04em;color:var(--ink-2)}
+.keys{font:600 13px/1 var(--f-body);letter-spacing:0;color:var(--ink-2)}
+.side button{font-size:12.5px;color:var(--ink-2)}
+.topbar .now{font:600 14px/1.3 var(--f-body);letter-spacing:0;color:var(--ink-2)}
+.minji{background:linear-gradient(90deg,rgba(245,176,74,.18),rgba(245,176,74,.06));padding:20px 24px}
+.minji::before{font:700 13px/1 var(--f-body);letter-spacing:.04em}
+.hand{font-size:18px}
+
+/* 밝은 작업판: 이 안에서는 글자·선·Lucian 요소가 모두 밝은 색 토큰을 읽는다 */
+.sheet,.u255,.u014,.u086,.u039-tabs{
+  --bg:#FBF8F3; --ink:#1A1714; --ink-2:#4A433C; --ink-3:#6E655C; --hair:rgba(26,23,20,.12); --hair-2:rgba(26,23,20,.24);
+  --glass:#FFFFFF; --glass-2:#F4EFE8; --gold:#B87708; --ember:#D9431F;
+  --ux-page:#FBF8F3; --ux-surface:#FFFFFF; --ux-surface-2:#F3EEE7; --ux-surface-3:#E4DBCF;
+  --ux-ink:#1A1714; --ux-ink-2:#4A433C; --ux-ink-3:#6E655C;
+  --ux-line:rgba(26,23,20,.12); --ux-line-2:rgba(26,23,20,.24);
+  --ux-accent:#D9431F; --ux-accent-2:#B87708; --ux-accent-soft:rgba(217,67,31,.12); --ux-accent-ink:#FFFFFF;
+  --ux-mint:#2E8A57; --ux-warn:#B87708; --ux-danger:#C9302C; --ux-shadow:rgba(60,40,20,.12); --ux-shadow-strong:rgba(60,40,20,.28);
+  color:var(--ink);
+}
+.sheet{background:#FBF8F3;box-shadow:0 0 0 1px rgba(255,255,255,.06),0 30px 60px -30px rgba(0,0,0,.7);padding:28px;gap:18px}
+.sheet h3{font-size:20px}
+.sheet .muted{color:#4A433C} .sheet .faint{color:#6E655C}
+.sheet a{color:#B0400F}
+.sheet .label{color:#4A433C}
+.sheet mark{color:#B0400F}
+.u255{background:#F4EFE8;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.u255-col{background:rgba(255,255,255,.6)}
+.u255-ch{font-size:13.5px}
+.u255-cd b{font-size:14px}
+.u255-cd span{font-size:11.5px;color:#1A1714}
+.u014,.u086{background:#FBF8F3;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.u014-t{font-size:17px}
+.u039-tabs{background:#FBF8F3}
+.u039-tab{font-size:15.5px;color:#4A433C}
+.u039-tab[aria-selected="true"]{color:#FBF8F3}
+.u029-field{background:#FFFFFF;box-shadow:0 0 0 1.5px rgba(26,23,20,.24)}
+.u029-tag{font-size:15px}
+.u029-in{font-size:16.5px}
+.u029-sg{font-size:14.5px}
+.u029-msg{font-size:14px}
+.u008-box{background:#F3EEE7}
+.u008-btn{background:#FFFFFF}
+.u008-code{font-size:13.5px}
+.u019-chip{font-size:15.5px}
+.u019-chip[aria-pressed="true"]{color:#1A1714}
+.u019-head b{font-size:18px}
+.u086-q,.u086-body{font-size:16px}
+.u086-sug button{font-size:14px}
+.u086-bar textarea{font-size:16px}
+
+/* 입력칸: 흰색 + 또렷한 테두리 */
+.sheet .inp,.sheet textarea.inp{background:#FFFFFF;color:#1A1714;font-size:17px;box-shadow:inset 0 0 0 1.5px rgba(26,23,20,.22)}
+.sheet .inp::placeholder{color:#8A8178}
+.sheet .inp:focus{background:#FFFFFF;box-shadow:inset 0 0 0 2px #D9431F,0 0 0 4px rgba(217,67,31,.15)}
+.sheet label.f{font-size:15px;font-weight:700;color:#2E2924}
+
+/* 작업판 안 구성 요소 */
+.card-note{background:#FFF4DC;box-shadow:inset 0 0 0 1.5px #E9C98A}
+.card-note .t{color:#1A1714}
+.card-note .meta{font:700 13px/1 var(--f-body);letter-spacing:.02em;color:#6E655C}
+.sure button{background:#FFFFFF;box-shadow:inset 0 0 0 1.5px rgba(26,23,20,.22);color:#1A1714;font-size:17px}
+.sure button small{color:#6E655C;font-size:13px}
+.sure button[aria-pressed="true"]{color:#FFFFFF;background:var(--c)}
+.sure button[aria-pressed="true"] small{color:rgba(255,255,255,.9)}
+.type{background:#FFFFFF;box-shadow:inset 0 0 0 1.5px rgba(26,23,20,.16);color:#1A1714}
+.type b{font-size:18px}
+.type span{font-size:14.5px;color:#4A433C}
+.type[aria-pressed="true"]{background:#1A1714;color:#FBF8F3}
+.type[aria-pressed="true"] span{color:rgba(251,248,243,.8)}
+.dir{background:#FFF0E8;box-shadow:inset 0 0 0 1.5px rgba(217,67,31,.3);color:#1A1714;font-size:16px}
+.sentence{background:#1A1714;color:#FBF8F3;font-size:21px;box-shadow:none}
+.sentence .slot{border-bottom-color:#F5B04A}
+.sentence .slot.empty{color:rgba(251,248,243,.55)}
+.check{font-size:15.5px}
+.sheet .check.ok{color:#2E8A57} .sheet .check.warn{color:#B05A00}
+.blocks4 div{background:#F3EEE7;color:#1A1714;font-size:15px}
+.role-tag{color:#1A1714;background:var(--c);font-size:12.5px}
+ol.steps li > div{font-size:16.5px}
+ol.steps li::before{background:#1A1714;color:#FBF8F3}
+.path{background:#EFE8DE;color:#1A1714;font-size:13.5px}
+.record{background:#F3EEE7;color:#1A1714;font-size:15.5px}
+.grid-wrap{box-shadow:0 0 0 1px rgba(26,23,20,.16)}
+table.mx{font-size:14.5px}
+table.mx th,table.mx td{border-color:rgba(26,23,20,.12)}
+table.mx tr > *:first-child{background:#FFFFFF;color:#1A1714}
+table.mx th,table.mx thead tr > *:first-child{background:#F3EEE7;color:#4A433C;font-size:13px}
+.pill{background:#F3EEE7;color:#1A1714}
+.bar-row{font-size:15.5px}
+.bar-row .track{background:#ECE5DB}
+.bar-row .v{font-size:14px}
+.legend{font-size:13.5px}
+.ladder .rung::before{background:#FBF8F3}
+.u014-box::before{background:linear-gradient(140deg,#D9431F,#E89B1A)}
+.u014-box svg{stroke:#FFFFFF}
+.btn{font-size:15.5px;height:46px}
+
+/* 어두운 틀 위의 강조 판 */
+.big .num{font-size:60px}
+.big p{font-size:15px;color:rgba(243,238,232,.86)}
+.oneline{font-size:18px}
+.chapter .lead{font-size:20px}
+.u228-in b{font-size:19px}
+.u228-in span.d{font-size:14.5px;color:#CFC6BC}
+.stats4 span{font-size:15px;color:var(--ink-2)}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<aside class="side" id="side" aria-label="미션 목차"></aside>
+<header class="topbar" id="topbar"></header>
+<div class="scrim" id="scrim" data-act="menu-close"></div>
+<nav class="sheet-menu" id="menu" aria-label="미션 목록"></nav>
+<div class="shell"><main id="main"></main></div>
+
+<script type="text/plain" id="gas-code">/**
+ * 아침 지원 브리핑 (민지의 첫 자동화)
+ * 시트 '지원현황'을 읽어서 매일 아침 이런 메일을 보냅니다.
+ *  1) 오늘~3일 안에 있는 일정 (날짜순)
+ *  2) 날짜를 모르는 일정 → 오늘 확인할 것
+ *  3) 날짜가 지났는데 완료 표시가 없는 것
+ * 열 순서: 회사명 | 단계 | 다음 일정 | 날짜 | 할 일 | 상태
+ */
+const SHEET_NAME = '지원현황';
+const DAYS_AHEAD = 3;
+
+function morningBriefing() {
+  const sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
+  const rows = sheet.getDataRange().getValues().slice(1); // 첫 줄(제목) 제외
+  // 날짜는 시트의 시간대로 셉니다 (스크립트 시간대가 달라도 하루씩 어긋나지 않게)
+  const tz = SpreadsheetApp.getActive().getSpreadsheetTimeZone();
+  const day = d => { const [y, m, dd] = Utilities.formatDate(d, tz, 'yyyy-MM-dd').split('-').map(Number); return Date.UTC(y, m - 1, dd) / 86400000; };
+  const today = day(new Date());
+
+  const soon = [], unknown = [], overdue = [];
+  rows.forEach(([company, stage, next, date, todo, status]) => {
+    if (!company || status === '완료') return;
+    const item = { company, stage, next, todo };
+    if (date === '' || date === null) { unknown.push(item); return; }
+    const d = date instanceof Date ? date : new Date(String(date));
+    if (isNaN(d)) { unknown.push(item); return; }
+    item.left = day(d) - today;
+    if (item.left < 0) overdue.push(item);
+    else if (item.left <= DAYS_AHEAD) soon.push(item);
+  });
+
+  if (!soon.length && !unknown.length && !overdue.length) return; // 알릴 게 없으면 보내지 않음
+  soon.sort((a, b) => a.left - b.left);
+
+  const line = s => `· ${s.company} [${s.stage}] ${s.next}${s.todo ? ' → ' + s.todo : ''}`;
+  const parts = [];
+  if (soon.length) parts.push('■ 3일 안에 있는 일정\n' +
+    soon.map(s => `${s.left === 0 ? '오늘' : 'D-' + s.left} ${line(s)}`).join('\n'));
+  if (unknown.length) parts.push('■ 날짜를 모름 → 오늘 확인할 것\n' + unknown.map(line).join('\n'));
+  if (overdue.length) parts.push('■ 날짜가 지났는데 완료 표시가 없음\n' + overdue.map(line).join('\n'));
+
+  MailApp.sendEmail(
+    Session.getEffectiveUser().getEmail(),
+    `[오늘의 지원 브리핑] 임박 ${soon.length} · 확인 필요 ${unknown.length}`,
+    parts.join('\n\n')
+  );
+}
+
+/** 한 번만 실행하면 매일 아침 8시(시트 시간대 기준)에 morningBriefing이 자동으로 돌아갑니다. */
+function createDailyTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'morningBriefing')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('morningBriefing').timeBased().everyDays(1).atHour(8)
+    .inTimezone(SpreadsheetApp.getActive().getSpreadsheetTimeZone()).create();
+}
+</script>
+
+<script type="text/plain" id="n8n-brief">// 시트의 각 줄을 '3일 안 / 날짜 모름 / 지남'으로 나눠 메일 본문 하나로 묶습니다.
+const DAYS_AHEAD = 3;
+// 날짜는 서울 기준으로 셉니다. n8n 서버 시간대가 달라도 하루씩 어긋나지 않게 '연-월-일'만 비교해요.
+const day = v => { const m = String(v ?? '').match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/); return m ? Date.UTC(+m[1], m[2] - 1, +m[3]) / 86400000 : NaN; };
+const today = day($now.setZone('Asia/Seoul').toFormat('yyyy-MM-dd'));
+
+const soon = [], unknown = [], overdue = [];
+for (const { json: r } of $input.all()) {
+  if (!r['회사명'] || r['상태'] === '완료') continue;
+  const item = { company: r['회사명'], stage: r['단계'], next: r['다음 일정'], todo: r['할 일'] };
+  const d = day(r['날짜']);
+  if (isNaN(d)) { unknown.push(item); continue; }
+  item.left = d - today;
+  if (item.left < 0) overdue.push(item);
+  else if (item.left <= DAYS_AHEAD) soon.push(item);
+}
+if (!soon.length && !unknown.length && !overdue.length) return [];
+soon.sort((a, b) => a.left - b.left);
+
+const line = s => `· ${s.company} [${s.stage}] ${s.next}${s.todo ? ' → ' + s.todo : ''}`;
+const parts = [];
+if (soon.length) parts.push('■ 3일 안에 있는 일정\n' + soon.map(s => `${s.left === 0 ? '오늘' : 'D-' + s.left} ${line(s)}`).join('\n'));
+if (unknown.length) parts.push('■ 날짜를 모름 → 오늘 확인할 것\n' + unknown.map(line).join('\n'));
+if (overdue.length) parts.push('■ 날짜가 지났는데 완료 표시가 없음\n' + overdue.map(line).join('\n'));
+
+return [{ json: { soon: soon.length, unknown: unknown.length, body: parts.join('\n\n') } }];
+</script>
+
+<script type="text/plain" id="n8n-parse">// AI 답변에서 JSON만 꺼내 시트 한 줄로 바꿉니다. 채용 메일이 아니면 버립니다.
+const out = [];
+for (const { json } of $input.all()) {
+  const m = String(json.text || '').match(/\{[\s\S]*\}/);
+  if (!m) continue;
+  let r;
+  try { r = JSON.parse(m[0]); } catch { continue; }
+  if (!r['회사명']) continue;
+  out.push({ json: {
+    '회사명': r['회사명'], '단계': r['단계'] || '', '다음 일정': r['다음 일정'] || '',
+    '날짜': r['날짜'] || '', '할 일': r['할 일'] || '', '상태': '진행중',
+  } });
+}
+return out;
+</script>
+<script>
+(() => {
+'use strict';
+const KEY = 'silta-lab-v1';
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let uid = 0; const nid = () => 'n' + Date.now().toString(36) + (uid++);
+
+/* ---------- 분류 기준 ---------- */
+const KINDS = ['공고 확인','서류·자소서','인적성·역량검사','면접','결과 발표','기타','마음'];
+const PLACES = ['머릿속','메모장','캘린더','메일','채용 사이트','카톡','문서'];
+const SURE = ['확실','애매','모름'];
+const COMMON = '공통';
+const TYPES = {
+  정보:{desc:'필요한 정보가 흩어져 있거나 없어서 전체 판이 안 보인다', dir:'먼저 한 곳에 모으고 구조를 정합니다. 흩어진 정보를 모으고 정리하는 일은 자동화와 AI가 잘하는 영역이에요.'},
+  결정:{desc:'정보는 있는데 무엇을 먼저 할지 고를 기준이 없다', dir:'우선순위 기준(마감, 합격 가능성, 준비 시간)을 먼저 정합니다. 기준이 생기면 정렬은 자동화할 수 있어요.'},
+  시간:{desc:'같은 일을 반복하느라 시간이 샌다', dir:'반복되는 부분을 찾아 자동화합니다. 단, 자동화하기 전에 그 일이 꼭 필요한지부터 따져 보세요.'},
+  마음:{desc:'일 자체보다 불안과 부담이 행동을 막는다', dir:'할 일을 아주 작게 쪼개고 "다음 한 걸음"만 보이게 합니다. 이 경우 도구보다 구조가 먼저예요.'},
+};
+
+/* ---------- 민지의 예시 ---------- */
+const MINJI = {
+  companies:['한빛커머스','소나무랩','파란은행','다온물류','그린에너지'],
+  notes:[
+    ['한빛커머스 자소서 3번 문항 아직 못 씀','한빛커머스','서류·자소서',['메모장'],'확실'],
+    ['한빛 서류 마감 이번 주 금요일이었나?','한빛커머스','서류·자소서',['머릿속'],'애매'],
+    ['소나무랩 인적성 날짜 메일로 왔던 것 같은데','소나무랩','인적성·역량검사',['메일'],'모름'],
+    ['파란은행 1차 발표 언제 나오지','파란은행','결과 발표',['머릿속'],'모름'],
+    ['파란은행 역량검사 링크 유효기간 확인해야 함','파란은행','인적성·역량검사',['메일'],'애매'],
+    ['다온물류 새 공고 떴는지 확인','다온물류','공고 확인',['채용 사이트'],'모름'],
+    ['자소서 문항들 비슷한데 재활용해도 되나','공통','서류·자소서',['메모장'],'애매'],
+    ['인적성 문제집, 어느 회사 것부터 풀지?','공통','인적성·역량검사',['머릿속'],'모름'],
+    ['소나무랩 자소서는 제출 완료','소나무랩','서류·자소서',['채용 사이트'],'확실'],
+    ['캘린더에 적은 날짜랑 메일 날짜가 다른 듯','공통','기타',['캘린더','메일'],'모름'],
+    ['단톡방에서 그린에너지 공고 괜찮다고 함','그린에너지','공고 확인',['카톡'],'애매'],
+    ['그린에너지 지원할지 말지 못 정함','그린에너지','공고 확인',['머릿속'],'모름'],
+    ['면접 준비는 언제부터 해야 하지','공통','면접',['머릿속'],'모름'],
+    ['한빛 자소서 4번은 초안 있음','한빛커머스','서류·자소서',['문서'],'확실'],
+    ['오늘 뭐부터 해야 할지 모르겠다','공통','마음',['머릿속'],'모름'],
+    ['다 놓치고 있는 것 같아서 불안함','공통','마음',['머릿속'],'모름'],
+  ],
+  why:{symptom:'오늘 뭐부터 해야 할지 모르겠고, 다 놓치고 있는 것 같아 불안하다',
+    w1:'회사마다 마감·검사·발표 날짜가 확실하지 않다 (16개 중 13개가 애매하거나 모름)',
+    w2:'날짜와 할 일이 7군데에 흩어져 있고, 7개는 머릿속에만 있다',
+    root:'새 소식은 메일·사이트·카톡으로 제각각 들어오는데, 그걸 한 곳에 모아 보는 판이 없다', type:'정보'},
+  prob:{sit:'5개 회사의 서류·검사·발표가 동시에 진행되면서',cause:'날짜와 할 일이 메일·채용 사이트·메모장·머릿속 등 7군데에 흩어져 있어서',
+    eff:'오늘 무엇부터 해야 할지 정하지 못하고 계속 불안하다',need:'회사별로 지금 어느 단계이고 다음에 무엇을 해야 하는지 한눈에 보이는 상태'},
+  design:{trig:'매일 아침 8시 (확장: 채용 메일이 올 때마다)',inp:'구글 시트 \'지원현황\' (회사명·단계·다음 일정·날짜·할 일·상태)',
+    proc:'3일 안 일정을 날짜순으로 고르고, 날짜가 빈 일정은 \'확인 필요\'로 따로 모으기',out:'아침 브리핑 메일: 임박한 일정 + 오늘 확인할 것',
+    human:'회사와 단계를 시트에 적기\n무엇을 먼저 할지 최종 결정하기',auto:'날짜순 정렬, 3일 안 일정 골라내기\n매일 아침 브리핑 보내기',
+    ai:'채용 메일을 읽고 회사·단계·날짜를 뽑아 시트에 넣기 (n8n 도전 과제)\n자동화 코드 써 주기'},
+  reflect:{learn:'시간이 부족한 줄 알았는데, 꺼내서 나눠 보니 정보가 7군데에 흩어져서 전체 판이 안 보이는 게 문제였다. 불안도 거기서 나왔다.',
+    work:'인턴 때 여러 거래처 요청이 메일·메신저·전화로 섞여 들어와서 뭘 먼저 할지 몰랐다. 꺼내기 → 나누기 → 엉킨 곳 찾기를 똑같이 해 보면, 요청을 한 곳에 모으는 판부터 필요하다는 걸 알 수 있을 것 같다.',
+    data:'데이터를 더 모으자고 하기 전에, 요청이 몇 군데로 들어오는지와 그중 날짜·담당이 확실하지 않은 게 몇 건인지부터 세어 보겠다. 그 두 숫자가 어디를 고칠지 알려 줄 것 같다.'},
+};
+
+/* ---------- 상태 ---------- */
+const blank = () => ({cur:0, notes:[], companies:[], why:{symptom:'',w1:'',w2:'',root:'',type:''},
+  prob:{sit:'',cause:'',eff:'',need:''}, chat:[], design:{trig:'',inp:'',proc:'',out:'',human:'',auto:'',ai:''},
+  gasOwn:'', tab7:'follow', tab8:'brief', reflect:{learn:'',work:'',data:''}, done:{}, checks:{}});
+let S;
+try { S = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY) || 'null') || {}); } catch { S = blank(); }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+const noteOf = id => S.notes.find(n => n.id === id);
+
+/* ---------- 엉킴 계산 ---------- */
+function stats(){
+  const ns = S.notes;
+  const placeCount = {}; ns.forEach(n => (n.where||[]).forEach(p => placeCount[p] = (placeCount[p]||0) + 1));
+  const places = Object.keys(placeCount).length;
+  const unsure = ns.filter(n => n.sure === '애매' || n.sure === '모름').length;
+  const headOnly = ns.filter(n => (n.where||[]).length === 1 && n.where[0] === '머릿속').length;
+  const byKind = KINDS.map(k => { const g = ns.filter(n => n.kind === k);
+    return {k, total:g.length, 모름:g.filter(n => n.sure==='모름').length, 애매:g.filter(n => n.sure==='애매').length, 확실:g.filter(n => n.sure==='확실').length}; }).filter(x => x.total);
+  const tagged = ns.filter(n => n.sure || (n.where||[]).length).length;
+  return {total:ns.length, places, placeCount, unsure, headOnly, byKind, tagged};
+}
+const worstKind = s => [...s.byKind].sort((a,b) => (b.모름*2+b.애매) - (a.모름*2+a.애매))[0];
+
+/* ---------- AI (sample) ---------- */
+let samplePromise = null;
+const getSample = () => (samplePromise ||= (window.claude?.use ? window.claude.use('sample').catch(() => null) : Promise.resolve(webSample)));
+
+/* Claude 밖(일반 웹사이트)에서는 /api/ai(OpenAI)를 부르고, 키가 없거나 연결이 안 되면 체험용 예시 답변을 보여 준다. */
+const aiErr = (code, text = '') => Object.assign(new Error(code), {code, text});
+async function webSample(input, {signal, onText, kind = 'coach'} = {}){
+  const messages = typeof input === 'string' ? [{role: 'user', content: input}] : input;
+  let res = null;
+  if (location.protocol.startsWith('http')){
+    try { res = await fetch('/api/ai', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({kind, messages}), signal}); }
+    catch (e){ if (signal?.aborted) throw aiErr('cancelled'); res = null; }
+  }
+  if (res?.status === 429) throw aiErr('rate_limited');
+  if (!res || !res.ok || !res.body) return demoSample(kind, {signal, onText});
+  const reader = res.body.getReader(), dec = new TextDecoder();
+  let text = '';
+  try {
+    for (;;){ const {done, value} = await reader.read(); if (done) break; text += dec.decode(value, {stream: true}); onText?.({text}); }
+  } catch (e){ throw aiErr(signal?.aborted ? 'cancelled' : 'error', text); }
+  if (!text.trim()) throw aiErr('error');
+  return {text};
+}
+async function demoSample(kind, {signal, onText}){
+  toast('체험판이라 미리 준비한 예시 답변을 보여 드려요.');
+  const full = DEMO[kind]?.() || DEMO.coach();
+  let text = '';
+  for (const w of full.split(/(\s+)/)){
+    if (signal?.aborted) throw aiErr('cancelled', text);
+    text += w; onText?.({text}); if (w.trim()) await new Promise(r => setTimeout(r, reduced() ? 0 : 35));
+  }
+  return {text};
+}
+const clip = (t, n = 18) => { t = String(t || '').trim(); return t.length > n ? t.slice(0, n) + '…' : t; };
+const DEMO = {
+  hint(){
+    const ns = S.notes.map(n => n.text).filter(Boolean), a = clip(ns[0]), b = clip(ns[1] || ns[0]), c = clip(ns[ns.length - 1]);
+    return `1. "${a}" 말고, 비슷하게 결과나 연락을 기다리고 있는 곳이 또 있나요?
+2. "${b}"와 날짜가 겹치거나 바로 붙어 있는 일정은 없나요?
+3. "${c}"를 떠올릴 때 어떤 기분이 드나요? 그 기분도 한 장으로 꺼내 보세요.`;
+  },
+  coach(){
+    const msg = [...S.chat].reverse().find(m => m.role === 'user')?.content || '', w = S.why, st = stats();
+    if (/앱|도구|캘린더|노션|툴|쓰면/.test(msg)) return '그건 해결책이에요. 앱을 쓰기 전에, 그게 없어서 지금 어떤 불편이 생기는지부터 볼까요? 지난주에 실제로 놓치거나 헷갈렸던 일 하나만 말해 주세요.';
+    if (/불안|막막|걱정|모르겠/.test(msg)) return `불안은 중요한 신호예요. 메모 ${st.total}장 중 ${st.unsure}장이 "애매"나 "모름"이었는데요, 그중 어떤 메모를 볼 때 가장 불안한가요?`;
+    if (/뿌리|맞는지|원인/.test(msg)) return w.root ? `"${clip(w.root, 30)}"가 바뀌면 "${clip(w.symptom || '지금의 불편', 24)}"도 같이 풀릴까요? 풀린다면 뿌리에 가까워요. 이건 정보·결정·시간·마음 중 어떤 문제에 가까워 보여요?` : '아직 사다리의 뿌리 칸이 비어 있어요. 증상에서 "왜?"를 한 번만 더 물어보면 무엇이 나오나요?';
+    return st.places ? `정보가 ${st.places}군데에 흩어져 있었죠. 말씀하신 일과 관련된 정보는 그중 어디에 있나요? 거기서 "왜?"를 한 번 더 물어볼게요.` : '좋아요. 그 일은 왜 그렇게 됐을까요? 떠오르는 이유 하나만 짧게 말해 주세요.';
+  },
+  code(){ return '체험판에서는 AI가 내 설계에 맞는 코드를 새로 만들지 않고, 따라하기 트랙의 예시 코드를 보여 드려요. 아래 코드에서 시트 이름과 열 구성을 내 설계에 맞게 바꿔 보세요.\n\n' + ($('#gas-code')?.textContent.trim() || ''); },
+};
+const errCopy = e => ({
+  not_granted:'AI 사용이 허용되지 않았어요. 민지 예시를 보고 이어서 진행할 수 있어요.',
+  rate_limited:'요청이 몰렸어요. 잠시 뒤에 다시 눌러 주세요.',
+  cancelled:'멈췄어요.',
+}[e?.code] || 'AI 응답을 받지 못했어요. 잠시 뒤에 다시 시도해 주세요.');
+
+/* ---------- 미션 정의 ---------- */
+const PHASES = [['시작',[0]],['분석',[1,2,3]],['발견',[4,5]],['혁신',[6,7,8]],['정리',[9]]];
+const M = [
+  {name:'맛보기', eyebrow:'미션 0 · 2분', render:m0,
+   why:'"뭐가 문제인지 모르겠다"는 상태가 정상이라는 걸 먼저 보여줍니다. 엉킨 메모가 한 문장이 되는 전후 비교가 과정 전체의 약속입니다.'},
+  {name:'꺼내기', eyebrow:'미션 1 · 분석 · 10분', render:m1,
+   why:'엉킨 생각은 머릿속에 있는 동안 풀 수 없습니다. 정리하지 말고, 판단하지 말고, 걱정이나 감정까지 포스트잇 한 장에 하나씩 꺼내는 것이 첫 단계입니다. 감정 메모는 미션 4에서 "증상"으로 쓰입니다.'},
+  {name:'나누기', eyebrow:'미션 2 · 분석 · 10분', render:m2,
+   why:'메모에 회사와 종류라는 두 축을 붙이면 머릿속이 표 하나로 바뀝니다. "내 고민은 사실 회사 × 단계 표였다"를 보는 순간이 첫 번째 "아!"입니다. 업무에서는 고객 × 단계, 프로젝트 × 담당자 같은 축이 됩니다.'},
+  {name:'엉킨 곳 찾기', eyebrow:'미션 3 · 분석 · 10분', render:m3,
+   why:'각 메모가 어디에 있고 얼마나 확실한지 표시하면 엉킴이 숫자로 드러납니다. 시간이 아니라 "흩어짐"과 "불확실함"을 잽니다. 데이터를 모으기 전에 무엇을 재야 할지부터 정하는 연습입니다.'},
+  {name:'해석하기', eyebrow:'미션 4 · 발견 · 20분', render:m4,
+   why:'가장 어려운 단계입니다. 눈에 보이는 증상(불안)에서 출발해 "왜?"를 두 번 물어 뿌리에 닿고, 그것이 정보·결정·시간·마음 중 어떤 문제인지 이름을 붙입니다. 유형에 따라 해법이 다르고, 모든 문제가 자동화로 풀리지는 않는다는 것을 배웁니다.'},
+  {name:'문제 정의', eyebrow:'미션 5 · 발견 · 15분', render:m5,
+   why:'해석한 내용을 남에게 전할 수 있는 한 문장으로 만듭니다. "일정 관리 앱이 필요하다"처럼 해결책을 문제라고 쓰는 습관을 여기서 깹니다. 코치는 답을 주지 않고 되묻기만 합니다.'},
+  {name:'자동화 설계', eyebrow:'미션 6 · 혁신 · 15분', render:m6,
+   why:'AI가 모든 걸 하는 게 아닙니다. 사람이 판단할 일, 규칙대로 돌릴 일, AI에게 맡길 일을 나눕니다. 이번 문제에서 AI가 가장 빛나는 곳은 흩어진 메일을 읽어 구조화하는 일입니다.'},
+  {name:'Apps Script', eyebrow:'미션 7 · 혁신 · 30분', render:m7,
+   why:'첫 구현은 반드시 성공해야 합니다. 따라하기 트랙은 복사·붙여넣기만으로 아침 브리핑이 오게 했습니다. "날짜 모름"을 따로 알려주는 부분이 미션 3에서 찾은 엉킴을 직접 겨냥한다는 점을 짚어 주세요.'},
+  {name:'n8n 확장', eyebrow:'미션 8 · 혁신 · 선택 · 40분', render:m8,
+   why:'같은 설계를 블록으로 다시 만들고, 도전 과제로 AI가 채용 메일을 읽어 시트에 넣게 합니다. 정보가 흩어지는 입구 자체를 막는 단계로, "정보 문제"에 대한 근본 해법을 체험합니다.'},
+  {name:'기록장', eyebrow:'미션 9 · 정리 · 10분', render:m9,
+   why:'엉킨 상황 → 꺼내기 → 나누기 → 엉킨 곳 → 해석 → 정의 → 자동화의 흐름을 한 장으로 남깁니다. 마지막 질문에서 이 틀을 회사 업무에 옮겨 보는 것이 전이의 시작입니다.'},
+];
+
+function matrixHTML(){
+  const cos = [...S.companies, COMMON].filter(c => S.notes.some(n => n.co === c));
+  const kinds = KINDS.filter(k => S.notes.some(n => n.kind === k));
+  const un = S.notes.filter(n => !n.co || !n.kind).length;
+  if (!cos.length || !kinds.length) return '<p class="muted">메모에 회사와 종류를 붙이면 여기에 표가 그려져요.</p>';
+  return `<div class="grid-wrap"><table class="mx"><thead><tr><th></th>${kinds.map(k => `<th>${esc(k)}</th>`).join('')}</tr></thead><tbody>
+    ${cos.map(c => `<tr><td>${esc(c)}</td>${kinds.map(k => `<td>${S.notes.filter(n => n.co===c && n.kind===k).map(n => `<span class="pill ${n.sure?'u-'+n.sure:''}">${esc(n.text)}</span>`).join('')}</td>`).join('')}</tr>`).join('')}
+  </tbody></table></div>${un ? `<p class="muted small">아직 나누지 않은 메모 ${un}장</p>` : ''}`;
+}
+const COACH_GREETING = '안녕하세요, 문제 해석 코치예요. 저는 답을 알려 드리지 않고 질문만 할게요. 지금 가장 크게 느껴지는 불편이나 감정부터 이야기해 주세요.';
+const SOLUTION_WORDS = ['앱','어플','만들','자동화','AI','인공지능','프로그램','시스템','봇','알림','노션','엑셀','시트'];
+function sentenceHTML(){
+  const p = S.prob, slot = (v, ph) => `<span class="slot ${v.trim()?'':'empty'}">${esc(v.trim()||ph)}</span>`;
+  return `나는 ${slot(p.sit,'어떤 상황에서')} ${slot(p.cause,'무엇 때문에')} ${slot(p.eff,'어떤 결과가 생긴다')}. 그래서 필요한 것은 ${slot(p.need,'어떤 상태')}.`;
+}
+function checksHTML(){
+  const p = S.prob, out = [];
+  if (!['sit','cause','eff','need'].every(k => p[k].trim())) out.push(['warn','네 칸을 모두 채우면 점검해 드려요.']);
+  else {
+    const hit = SOLUTION_WORDS.filter(w => p.need.includes(w));
+    out.push(hit.length ? ['warn',`'필요' 칸에 "${hit.join(', ')}"가 들어 있어요. 해결책을 먼저 쓴 건 아닌지 보세요. 도구가 아니라 원하는 상태를 적어 보세요.`] : ['ok','필요한 것을 해결책이 아니라 원하는 상태로 적었어요.']);
+    out.push(/\d/.test(p.sit + p.cause + p.eff) ? ['ok','숫자(회사 수, 몇 군데, 몇 개)가 들어 있어서 나중에 나아졌는지 잴 수 있어요.'] : ['warn','숫자가 하나도 없어요. 미션 3의 숫자를 가져와 보세요.']);
+    out.push(S.why.root.trim() ? ['ok','미션 4에서 찾은 뿌리가 있어요. 원인 칸이 그 뿌리와 같은 이야기인지 비교해 보세요.'] : ['warn','원인 칸에는 미션 4에서 찾은 뿌리를 담아 보세요.']);
+  }
+  return out.map(([k,t]) => `<div class="check ${k}"><span>${k==='ok'?'✓':'!'}</span><span>${esc(t)}</span></div>`).join('');
+}
+function fmtDate(off){ const d = new Date(); d.setDate(d.getDate()+off); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function sampleRows(){
+  return ['회사명\t단계\t다음 일정\t날짜\t할 일\t상태',
+    `한빛커머스\t서류\t자소서 마감\t${fmtDate(2)}\t3번 문항 쓰기\t진행중`,
+    `소나무랩\t검사\t인적성검사\t${fmtDate(3)}\t문제집 1회 풀기\t진행중`,
+    `파란은행\t발표\t1차 발표\t\t발표일 메일 다시 찾기\t진행중`,
+    `파란은행\t검사\t역량검사 링크 마감\t${fmtDate(1)}\t검사 응시하기\t진행중`,
+    `다온물류\t공고\t공고 확인\t${fmtDate(10)}\t공고 읽고 지원 결정\t진행중`,
+    `그린에너지\t공고\t지원 여부 결정\t\t공고 읽고 기준표 채우기\t진행중`,
+    `소나무랩\t서류\t자소서 제출\t${fmtDate(-2)}\t\t완료`].join('\n');
+}
+const link = (to, type='main') => ({[type]:[[{node:to, type, index:0}]]});
+function n8nBrief(){
+  return JSON.stringify({name:'아침 지원 브리핑', nodes:[
+    {parameters:{rule:{interval:[{triggerAtHour:8}]}},name:'매일 아침 8시',type:'n8n-nodes-base.scheduleTrigger',typeVersion:1.2,position:[0,0]},
+    {parameters:{operation:'read',documentId:{__rl:true,value:'',mode:'url'},sheetName:{__rl:true,value:'지원현황',mode:'name'},options:{}},name:'지원현황 읽기',type:'n8n-nodes-base.googleSheets',typeVersion:4.5,position:[240,0]},
+    {parameters:{jsCode:$('#n8n-brief').textContent},name:'임박·모름·지남 나누기',type:'n8n-nodes-base.code',typeVersion:2,position:[480,0]},
+    {parameters:{sendTo:'',subject:'=[오늘의 지원 브리핑] 임박 {{ $json.soon }} · 확인 필요 {{ $json.unknown }}',emailType:'text',message:'={{ $json.body }}',options:{}},name:'브리핑 메일 보내기',type:'n8n-nodes-base.gmail',typeVersion:2.1,position:[720,0]},
+  ], connections:{'매일 아침 8시':link('지원현황 읽기'),'지원현황 읽기':link('임박·모름·지남 나누기'),'임박·모름·지남 나누기':link('브리핑 메일 보내기')}}, null, 2);
+}
+function n8nMail(){
+  const prompt = `=아래는 취업준비생이 받은 메일이다. 채용 전형 일정(서류, 인적성, 역량검사, 면접, 발표 등)에 관한 메일이면 JSON 하나로만 답하라. 채용 일정과 관계없는 메일이면 {} 만 답하라.
+형식: {"회사명": "", "단계": "공고|서류|검사|면접|발표 중 하나", "다음 일정": "짧게", "날짜": "YYYY-MM-DD, 모르면 빈칸", "할 일": "지원자가 해야 할 일 한 줄"}
+
+보낸 사람: {{ $json.From }}
+제목: {{ $json.Subject }}
+내용: {{ $json.snippet }}`;
+  return JSON.stringify({name:'채용 메일 → 지원현황 자동 정리', nodes:[
+    {parameters:{pollTimes:{item:[{mode:'everyHour'}]},simple:true,filters:{q:'서류 OR 인적성 OR 역량검사 OR 면접 OR 발표 OR 전형'},options:{}},name:'채용 메일 도착',type:'n8n-nodes-base.gmailTrigger',typeVersion:1.2,position:[0,0]},
+    {parameters:{promptType:'define',text:prompt},name:'AI가 일정 뽑기',type:'@n8n/n8n-nodes-langchain.chainLlm',typeVersion:1.4,position:[240,0]},
+    {parameters:{options:{}},name:'Claude 모델',type:'@n8n/n8n-nodes-langchain.lmChatAnthropic',typeVersion:1.2,position:[240,200]},
+    {parameters:{jsCode:$('#n8n-parse').textContent},name:'시트 한 줄로 바꾸기',type:'n8n-nodes-base.code',typeVersion:2,position:[480,0]},
+    {parameters:{operation:'append',documentId:{__rl:true,value:'',mode:'url'},sheetName:{__rl:true,value:'지원현황',mode:'name'},columns:{mappingMode:'autoMapInputData',value:{}},options:{}},name:'지원현황에 추가',type:'n8n-nodes-base.googleSheets',typeVersion:4.5,position:[720,0]},
+  ], connections:{'채용 메일 도착':link('AI가 일정 뽑기'),'Claude 모델':link('AI가 일정 뽑기','ai_languageModel'),'AI가 일정 뽑기':link('시트 한 줄로 바꾸기'),'시트 한 줄로 바꾸기':link('지원현황에 추가')}}, null, 2);
+}
+function recordText(){
+  const s = stats(), w = S.why, p = S.prob, d = S.design, r = S.reflect;
+  const line = (v, alt='(아직 비어 있음)') => (v && String(v).trim()) || alt;
+  const worst = worstKind(s);
+  return `# 문제해결 기록: 엉킨 생각에서 자동화까지
+
+## 1. 꺼내기와 나누기
+- 꺼낸 메모: ${s.total}장
+- 나눈 축: 회사 ${S.companies.length}곳 × 종류 ${new Set(S.notes.map(n => n.kind).filter(Boolean)).size}가지
+
+## 2. 엉킨 곳
+- 정보가 흩어진 곳: ${s.places}군데 (${Object.keys(s.placeCount).join(', ') || '-'})
+- 애매하거나 모르는 메모: ${s.unsure}/${s.total}
+- 머릿속에만 있는 메모: ${s.headOnly}
+- 가장 엉킨 종류: ${worst ? worst.k : '-'}
+
+## 3. 해석
+- 증상: ${line(w.symptom)}
+- 왜?: ${line(w.w1)}
+- 또 왜?: ${line(w.w2)}
+- 뿌리: ${line(w.root)}
+- 문제 유형: ${w.type ? w.type + ' 문제' : '(아직 비어 있음)'}
+
+## 4. 문제 정의
+나는 ${line(p.sit,'…')} ${line(p.cause,'…')} ${line(p.eff,'…')}. 그래서 필요한 것은 ${line(p.need,'…')}.
+
+## 5. 자동화 설계
+- 계기 → 입력 → 처리 → 출력: ${[d.trig,d.inp,d.proc,d.out].map(v => line(v,'?')).join(' → ')}
+- 사람이 할 일: ${line(d.human).replace(/\n/g,', ')}
+- 자동으로 돌릴 일: ${line(d.auto).replace(/\n/g,', ')}
+- AI에게 맡긴 일: ${line(d.ai).replace(/\n/g,', ')}
+
+## 6. 구현
+- Google Apps Script: ${S.checks.g4 ? '브리핑 메일 도착 확인' : '진행 중'}${S.checks.g5 ? ', 매일 자동 실행 등록' : ''}
+- n8n: ${S.checks.n5 ? '아침 브리핑 켜기 완료' : S.checks.n2 ? '블록 구성까지 완료' : '시작 전'}${S.checks.m4 ? ', 채용 메일 AI 정리 성공' : ''}
+
+## 7. 배운 점
+${line(r.learn)}
+
+## 8. 업무에 옮긴다면
+${line(r.work)}
+
+## 9. 데이터보다 먼저 정할 질문
+${line(r.data)}
+`;
+}
+const hasMinjiNotes = () => S.notes.some(n => n.minji != null);
+function loadMinjiNotes(){
+  S.notes = MINJI.notes.map((x,i) => ({id:nid(), text:x[0], co:'', kind:'', where:[], sure:'', minji:i}));
+  S.companies = [...MINJI.companies];
+}
+function fill(step){
+  if (step===1 || ([2,3].includes(step) && !hasMinjiNotes())) loadMinjiNotes();
+  if (step===2 || step===3){
+    S.companies = [...new Set([...S.companies, ...MINJI.companies])];
+    S.notes.forEach(n => { const x = MINJI.notes[n.minji]; if (!x) return;
+      if (step===2 || !n.co){ n.co = x[1]; n.kind = x[2]; }
+      if (step===3){ n.where = [...x[3]]; n.sure = x[4]; }
+    });
+  }
+  if (step===4) S.why = {...MINJI.why};
+  if (step===5) S.prob = {...MINJI.prob};
+  if (step===6) S.design = {...MINJI.design};
+  if (step===9) S.reflect = {...MINJI.reflect};
+  render();
+}
+function wouldOverwrite(step){
+  if (step===1) return S.notes.length > 0;
+  if (step===2 || step===3) return !hasMinjiNotes() && S.notes.length > 0;
+  const obj = {4:S.why, 5:S.prob, 6:S.design, 9:S.reflect}[step];
+  return obj ? Object.values(obj).some(v => String(v).trim()) : false;
+}
+
+/* ---------- 입력 바인딩 ---------- */
+function setPath(path, val){
+  const [root, a, b] = path.split('.');
+  if (root==='note'){ const n = noteOf(a); if (n) n[b] = val; }
+  else S[root][a] = val;
+}
+const onBind = e => {
+  const el = e.target, path = el.dataset.bind; if (!path) return;
+  setPath(path, el.value); save();
+  if (path.startsWith('note.') && $('#matrix')) $('#matrix').innerHTML = matrixHTML();
+  if (el.dataset.live==='m5'){ $('#sentence').innerHTML = sentenceHTML(); $('#checks').innerHTML = checksHTML(); }
+  if (el.dataset.live==='m9') $('#record').textContent = recordText();
+};
+$('#main').addEventListener('input', onBind);
+$('#main').addEventListener('change', e => { if (e.target.tagName === 'SELECT') onBind(e); });
+
+/* ---------- 복사 ---------- */
+function toast(msg){ const t = $('#toast'); if (t){ t.textContent = msg; clearTimeout(toast.t); toast.t = setTimeout(() => { t.textContent=''; }, 2500); } }
+let ctl = null;
+async function runHint(btn){
+  const out = $('#hint-out');
+  if (!S.notes.length){ out.textContent = '먼저 메모를 두세 장이라도 붙여 주세요.'; return; }
+  const sample = await getSample();
+  if (!sample){ out.textContent = 'AI를 쓸 수 없는 환경이에요. 민지의 메모를 보고 비슷한 게 있는지 떠올려 보세요.'; return; }
+  btn.disabled = true; out.textContent = '생각하는 중…';
+  const prompt = `너는 취업준비생이 머릿속 생각을 꺼내도록 돕는 조교다. 아래는 학생이 포스트잇에 꺼낸 메모들이다.
+
+${S.notes.map(n => '- ' + n.text).join('\n')}
+
+학생이 아직 꺼내지 않았을 법한 것(다른 회사, 날짜, 기다리는 연락, 준비물, 비교·결정 중인 것, 걱정이나 감정)을 떠올리게 하는 질문을 정확히 3개만 한국어로 써라. 각 질문은 한 줄, 번호를 붙이고, 학생 메모의 구체적인 단어를 하나 이상 인용하라. 정리, 조언, 해결책은 쓰지 마라. 질문 외의 말은 쓰지 마라.`;
+  try { await sample(prompt, {modelTier:'quick', kind:'hint', onText:({text}) => { out.textContent = text; }}); }
+  catch(e){ out.textContent = errCopy(e); }
+  finally { btn.disabled = false; }
+}
+function coachRules(){
+  const s = stats(), w = S.why, p = S.prob;
+  return `너는 20~34세 취업준비생에게 "문제 발견과 해석"을 가르치는 코치다. 학생은 생각이 엉켜서 무엇이 문제인지 모르는 상태에서 출발했다.
+규칙:
+- 해결책, 도구, 앱 이름을 먼저 제안하지 마라. 학생이 해결책을 문제라고 말하면 "그건 해결책"이라고 짚고, 그게 없어서 생긴 불편을 묻는다.
+- 한 번에 질문은 하나만. 답변은 3문장 이내, 친근한 존댓말.
+- 감정(불안, 막막함)은 증상으로 존중하고, 그 감정이 어떤 메모와 연결되는지 묻는다.
+- 아래 근거 숫자와 메모를 인용해서 "왜?"를 한 단계 더 내려가게 한다.
+- 뿌리 원인이 보이면 정보·결정·시간·마음 중 어떤 문제인지 학생이 스스로 고르게 묻는다.
+- 학생 문장이 상황·원인·결과·필요를 잘 갖추면 짧게 칭찬하고 무엇이 좋은지 한 가지만 말한다.
+
+학생의 메모 (회사 / 종류 / 있는 곳 / 확실도):
+${S.notes.map(n => `- ${n.text} / ${n.co||'?'} / ${n.kind||'?'} / ${(n.where||[]).join(',')||'?'} / ${n.sure||'?'}`).join('\n') || '(없음)'}
+근거 숫자: 흩어진 곳 ${s.places}군데, 애매하거나 모름 ${s.unsure}/${s.total}, 머릿속에만 ${s.headOnly}
+왜? 사다리: 증상 "${w.symptom||'…'}" → "${w.w1||'…'}" → "${w.w2||'…'}" → 뿌리 "${w.root||'…'}" (유형: ${w.type||'미정'})
+현재 문제 문장: 나는 ${p.sit||'…'} ${p.cause||'…'} ${p.eff||'…'}. 그래서 필요한 것은 ${p.need||'…'}.
+이제 학생과 대화를 시작한다.`;
+}
+async function genCode(btn){
+  const out = $('#gen-out'), note = $('#gen-note');
+  const sample = await getSample();
+  if (!sample){ note.textContent = 'AI를 쓸 수 없는 환경이에요. 따라하기 트랙의 코드를 내 설계에 맞게 고쳐 보세요.'; return; }
+  const d = S.design, p = S.prob, w = S.why;
+  const prompt = `너는 코딩을 처음 하는 취업준비생을 돕는 Google Apps Script 조교다.
+학생의 문제 정의: 나는 ${p.sit} ${p.cause} ${p.eff}. 그래서 필요한 것은 ${p.need}.
+뿌리 원인: ${w.root} (유형: ${w.type || '미정'})
+자동화 설계도:
+- 계기: ${d.trig}
+- 입력: ${d.inp}
+- 처리: ${d.proc}
+- 출력: ${d.out}
+- 사람이 할 일: ${d.human}
+- 자동으로 돌릴 일: ${d.auto}
+- AI에게 맡길 일: ${d.ai}
+
+다음 형식으로만 한국어로 답하라.
+1) "준비물" 한 줄 (예: 구글 시트 '이름', 열 구성)
+2) Apps Script 코드 하나 (주석은 한국어로 짧게, 외부 API 키 없이 Google 기본 서비스만 사용, 시간 트리거를 만드는 함수 createTrigger 포함)
+3) "설치 순서" 번호 목록 5줄 이내
+Apps Script만으로 어렵거나 위험한 설계(개인정보 대량 수집, 다른 사람 계정 접근 등)라면 코드를 쓰지 말고, 이유와 더 작은 첫 단계를 제안하라. 코드 블록 표시(\`\`\`)는 쓰지 마라.`;
+  btn.disabled = true; $('#gen-stop').hidden = false; out.textContent = '생각하는 중… 길면 1분 정도 걸려요.';
+  ctl = new AbortController();
+  try {
+    const {text} = await sample(prompt, {kind:'code', signal:ctl.signal, onText:({text}) => { out.textContent = text; }});
+    S.gasOwn = text; save(); note.textContent = '결과를 복사해서 따라하기 트랙과 같은 순서로 붙여넣어 보세요.';
+  } catch(e){ out.textContent = e.text || S.gasOwn || ''; note.textContent = errCopy(e); }
+  finally { btn.disabled = false; if ($('#gen-stop')) $('#gen-stop').hidden = true; }
+}
+
+/* ================= 새 화면 ================= */
+const THREAD = ['#FF6A3D','#F5B04A','#8FCB9B','#B78CF2','#F07FA0','#C7D16E'];
+const KIND_COLOR = {'공고 확인':'#F5B04A','서류·자소서':'#FF6A3D','인적성·역량검사':'#B78CF2','면접':'#8FCB9B','결과 발표':'#F07FA0','기타':'#8A8178','마음':'#C7D16E'};
+const SURE_INFO = {'확실':['var(--ux-mint)','알고 있어요'],'애매':['var(--ux-warn)','그랬던 것 같아요'],'모름':['var(--ux-danger)','확인해야 해요']};
+const colorOf = s => { let h = 0; for (const ch of String(s)) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return THREAD[h % THREAD.length]; };
+const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CHECK_SVG = '<i aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.4"/></svg></i>';
+const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
+/* ---------- 공통 조각 ---------- */
+const why = i => `<details class="why"><summary>강사용 메모: 이 미션의 설계 의도</summary><p>${esc(M[i].why)}</p></details>`;
+const fillBtn = (i, label='민지 예시로 채우기') => `<button class="btn ghost" data-act="fill" data-step="${i}">${label}</button>`;
+/* Lucian UX/UI Prompt #002 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#002 — 다음 미션 버튼 */
+const magnet = (label, done) => `<div class="ux u002" data-magnet data-state="idle"><span class="u002-glow" aria-hidden="true"></span><div class="u002-mag">
+  <button class="u002-btn" type="button"><span class="u002-fill" aria-hidden="true"></span><span class="u002-txt"><span>${esc(label)}</span><span aria-hidden="true">${esc(done)}</span></span>
+  <span class="u002-orb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></button></div></div>`;
+const foot = i => `<div class="nav-foot">
+  ${i > 0 ? `<button class="btn quiet" data-act="go" data-to="${i-1}">← ${esc(M[i-1].name)}</button>` : '<span></span>'}
+  <span class="keys"><kbd>←</kbd> <kbd>→</kbd> 로 미션 이동</span>
+  ${i < M.length-1 ? magnet(i === 0 ? '실 풀기 시작' : `다음 · ${M[i+1].name}`, '좋아요, 가요') : `<button class="btn ghost" data-act="go" data-to="0">처음으로</button>`}
+</div>`;
+const head = (i, title, lead) => `<div class="head"><span class="num" aria-hidden="true">${String(i).padStart(2, '0')}</span><span class="eyebrow">${esc(M[i].eyebrow)}</span><h2>${title}</h2>${lead?`<p class="lead">${lead}</p>`:''}</div>`;
+const needNotes = () => `<div class="sheet"><p>미션 1에서 꺼낸 메모가 아직 없어요.</p><div class="row"><button class="btn ghost" data-act="go" data-to="1">미션 1로 가기</button>${fillBtn(1,'민지 메모로 채우기')}</div></div>`;
+const chipHTML = (label, on, attrs = '', sel = '') =>
+  `<button class="u019-chip" type="button" aria-pressed="${on}" ${attrs}${sel ? ` style="--sel:${sel}"` : ''}>${CHECK_SVG}${esc(label)}</button>`;
+
+/* #008 복사 상자: 여러 줄 코드용으로 넓힘 */
+const copyBox = (id, text, wrap) => `<div class="ux u008" data-copy><div class="u008-box"><pre class="u008-code${wrap?' wrap':''}" id="${id}">${esc(text)}</pre>
+  <button class="u008-btn" type="button" aria-label="복사"><svg class="u008-cp" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6.5a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></svg><svg class="u008-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12.5l4.2 4.2L18.5 8"/></svg></button>
+  <span class="u008-tip" role="status"></span></div></div>`;
+/* #014 체크리스트 */
+const checklist = (title, sub, items) => `<div class="ux u014" data-check><div class="u014-head"><div><b>${esc(title)}</b><span class="u014-sub" aria-live="polite"><span>${esc(sub)}</span><span>모든 단계를 끝냈어요</span></span></div>
+  <div class="u014-ring" aria-hidden="true"><svg viewBox="0 0 48 48"><circle class="bg" cx="24" cy="24" r="20"/><circle class="fg" cx="24" cy="24" r="20"/></svg><span class="u014-num"></span><span class="u014-done"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.4"/></svg></span></div></div>
+  <ul class="u014-list">${items.map(([id, t, tag, k]) => `<li><label class="u014-row"><input class="u014-in" type="checkbox" data-ck="${id}"${S.checks[id]?' checked':''}><span class="u014-box" aria-hidden="true"><svg viewBox="0 0 26 26"><path d="M7.5 13.5l3.8 3.8 7.4-8"/></svg></span><span class="u014-t">${esc(t)}</span><span class="u014-tag" style="--k:${k}">${esc(tag)}</span></label></li>`).join('')}</ul></div>`;
+/* #039 탭: 패널 내용은 TAB_PANELS[key](값)이 만든다 */
+const pillTabs = (key, labels) => `<div class="ux u039" data-tabs="${key}"><div class="u039-tabs" role="tablist"><span class="u039-pill" aria-hidden="true"></span>${labels.map(([v, l]) => `<button class="u039-tab" type="button" role="tab" data-v="${v}" aria-selected="${S[key]===v}">${esc(l)}</button>`).join('')}</div><div class="u039-panel" role="tabpanel"></div></div>`;
+
+/* ================= Lucian 요소 이식 ================= */
+
+/* Lucian UX/UI Prompt #352 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#352
+   첫 화면 전체를 채우는 흐름장. 색 조합을 잉걸불·이끼·자두로 바꾸고, 입자 수를 넓이에 맞춰 늘림. 흐름 수식과 시간 값은 원본 그대로. */
+function mountFlow(root){
+  const cv = root.querySelector('.u352-cv'), cx = cv.getContext('2d'), nm = root.querySelector('.u352-nm');
+  const rm = reduced();
+  const PAL = [['잉걸불', '#0A0908', [6, 42]], ['이끼', '#070A07', [70, 130]], ['자두', '#0B0710', [285, 335]]];
+  const W = root.clientWidth || 340, H = root.clientHeight || 330, dpr = Math.min(2, window.devicePixelRatio || 1);
+  let pal = 0, ptr = null, t = 0;
+  cv.width = W * dpr; cv.height = H * dpr; cx.scale(dpr, dpr);
+  const P = [];
+  const spawn = p => { p.x = Math.random() * W; p.y = Math.random() * H; p.life = 60 + Math.random() * 160; p.h = Math.random(); return p; };
+  const N = Math.min(2600, Math.round(900 * (W * H) / (340 * 330)));
+  for (let i = 0; i < N; i++) P.push(spawn({}));
+  const angle = (x, y) => (Math.sin(x * 0.011 + t * 0.25) + Math.cos(y * 0.013 - t * 0.19) + Math.sin((x + y) * 0.006 + t * 0.12)) * Math.PI * 0.66;
+  function clear(){ cx.fillStyle = PAL[pal][1]; cx.fillRect(0, 0, W, H); root.style.backgroundColor = PAL[pal][1]; nm.textContent = PAL[pal][0]; }
+  function step(dt){
+    cx.globalAlpha = 0.07; cx.fillStyle = PAL[pal][1]; cx.fillRect(0, 0, W, H); cx.globalAlpha = 1;
+    const groups = [[], [], [], [], [], []], hr = PAL[pal][2];
+    P.forEach(p => {
+      const a = angle(p.x, p.y); let vx = Math.cos(a) * 46, vy = Math.sin(a) * 46;
+      if (ptr) { const dx = p.x - ptr.x, dy = p.y - ptr.y, d = Math.hypot(dx, dy);
+        if (d < 95 && d > 1) { const f = (1 - d / 95) * 160; vx += -dy / d * f - dx / d * f * 0.25; vy += dx / d * f - dy / d * f * 0.25; } }
+      const nx = p.x + vx * dt, ny = p.y + vy * dt;
+      groups[Math.min(5, (p.h * 6) | 0)].push(p.x, p.y, nx, ny);
+      p.x = nx; p.y = ny; p.life -= 1;
+      if (p.life < 0 || nx < -5 || nx > W + 5 || ny < -5 || ny > H + 5) spawn(p);
+    });
+    cx.lineWidth = 1.1; cx.lineCap = 'round';
+    groups.forEach((g, k) => {
+      const hue = hr[0] + (hr[1] - hr[0]) * k / 5;
+      cx.strokeStyle = `hsla(${hue.toFixed(0)},85%,${58 + k * 4}%,.55)`;
+      cx.beginPath(); for (let j = 0; j < g.length; j += 4) { cx.moveTo(g[j], g[j + 1]); cx.lineTo(g[j + 2], g[j + 3]); } cx.stroke();
+    });
+  }
+  let vis = true, raf = 0, last = 0, io = null;
+  function frame(now){
+    raf = 0;
+    if (!root.isConnected){ io && io.disconnect(); return; }
+    if (!vis) return;
+    const dt = Math.min(0.04, Math.max(0, (now - last) / 1000)); last = now; t += dt;
+    step(dt); raf = requestAnimationFrame(frame);
+  }
+  function run(){ if (rm) { clear(); for (let k = 0; k < 120; k++) { t += 0.016; step(0.016); } return; } if (!raf && vis) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+  if ('IntersectionObserver' in window) { io = new IntersectionObserver(es => { vis = es[0].isIntersecting; run(); }); io.observe(root); }
+  const loc = e => { const r = cv.getBoundingClientRect(), k = cv.offsetWidth / (r.width || 1); return {x: (e.clientX - r.left) * k, y: (e.clientY - r.top) * k}; };
+  cv.addEventListener('pointermove', e => { ptr = loc(e); });
+  cv.addEventListener('pointerleave', () => { ptr = null; });
+  cv.addEventListener('click', () => { pal = (pal + 1) % PAL.length; P.forEach(spawn); clear(); if (rm) run(); });
+  clear(); run();
+}
+
+/* Lucian UX/UI Prompt #378 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#378
+   낱말을 이 실습의 이야기(엉킨 생각 → 한 문장)로 바꾸고, 빛 색을 잉걸불로, 글자 크기를 칸 너비에 맞춤. 스프링 값은 원본 그대로. */
+function mountWords(root, WORDS, onWord){
+  const cv = root.querySelector('.u378-cv'), cx = cv.getContext('2d');
+  const rm = reduced();
+  const W = root.clientWidth || 340, H = root.clientHeight || 320, dpr = Math.min(2, window.devicePixelRatio || 1);
+  const N = Math.min(1800, Math.round(720 * (W * H) / (340 * 320)));
+  cv.width = W * dpr; cv.height = H * dpr; cx.scale(dpr, dpr);
+  let wi = 0, ptr = null;
+  function targets(word){
+    const o = document.createElement('canvas'); o.width = W; o.height = H;
+    const c = o.getContext('2d'), fam = '"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    let size = H * 0.42; c.font = `900 ${size}px ${fam}`;
+    const tw = c.measureText(word).width; if (tw > W * 0.84) { size *= W * 0.84 / tw; c.font = `900 ${size}px ${fam}`; }
+    c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(word, W / 2, H / 2 + 4);
+    const d = c.getImageData(0, 0, W, H).data, pts = [];
+    for (let y = 0; y < H; y += 4) for (let x = 0; x < W; x += 4) if (d[(y * W + x) * 4 + 3] > 128) pts.push([x, y]);
+    for (let k = pts.length - 1; k > 0; k--) { const j = (Math.random() * (k + 1)) | 0, tt = pts[k]; pts[k] = pts[j]; pts[j] = tt; }
+    return pts;
+  }
+  const P = [];
+  for (let i = 0; i < N; i++) P.push({x: Math.random() * W, y: Math.random() * H, vx: 0, vy: 0, tx: W / 2, ty: H / 2, h: 8 + Math.random() * 36, on: true});
+  function assign(){
+    const pts = targets(WORDS[wi]);
+    P.forEach((p, i) => {
+      if (i < pts.length) { p.tx = pts[i][0] + (Math.random() - 0.5) * 1.5; p.ty = pts[i][1] + (Math.random() - 0.5) * 1.5; p.on = true; }
+      else { const a = Math.random() * 6.28, r = Math.max(W, H) * 0.45 + Math.random() * 60; p.tx = W / 2 + Math.cos(a) * r; p.ty = H / 2 + Math.sin(a) * r; p.on = false; }
+    });
+    onWord && onWord(wi);
+  }
+  function draw(){
+    cx.clearRect(0, 0, W, H); cx.globalCompositeOperation = 'lighter';
+    P.forEach(p => { const sp = Math.min(1, Math.hypot(p.vx, p.vy) / 300);
+      cx.fillStyle = `hsla(${(p.h - sp * 20).toFixed(0)},92%,${(62 + sp * 20).toFixed(0)}%,${p.on ? 0.9 : 0.18})`;
+      cx.fillRect(p.x - 1.3, p.y - 1.3, 2.6, 2.6); });
+    cx.globalCompositeOperation = 'source-over';
+  }
+  let vis = true, raf = 0, last = 0, io = null;
+  function frame(now){
+    raf = 0;
+    if (!root.isConnected){ io && io.disconnect(); return; }
+    if (!vis) return;
+    const dt = Math.min(0.033, Math.max(0, (now - last) / 1000)); last = now;
+    P.forEach(p => {
+      let ax = (p.tx - p.x) * 38 - p.vx * 7.5, ay = (p.ty - p.y) * 38 - p.vy * 7.5;
+      if (ptr) { const dx = p.x - ptr.x, dy = p.y - ptr.y, d2 = dx * dx + dy * dy; if (d2 < 3600) { const f = (1 - d2 / 3600) * 9000 / (Math.sqrt(d2) + 6); ax += dx * f / 40; ay += dy * f / 40; } }
+      p.vx += ax * dt; p.vy += ay * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+    });
+    draw(); raf = requestAnimationFrame(frame);
+  }
+  function run(){ if (rm) { P.forEach(p => { p.x = p.tx; p.y = p.ty; }); draw(); return; } if (!raf && vis) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+  if ('IntersectionObserver' in window) { io = new IntersectionObserver(es => { vis = es[0].isIntersecting; run(); }); io.observe(root); }
+  const loc = e => { const r = cv.getBoundingClientRect(), k = cv.offsetWidth / (r.width || 1); return {x: (e.clientX - r.left) * k, y: (e.clientY - r.top) * k}; };
+  cv.addEventListener('pointermove', e => { ptr = loc(e); });
+  cv.addEventListener('pointerleave', () => { ptr = null; });
+  const next = () => { wi = (wi + 1) % WORDS.length; assign(); P.forEach(p => { p.vx += (Math.random() - 0.5) * 260; p.vy += (Math.random() - 0.5) * 260; }); run(); };
+  cv.addEventListener('click', next);
+  (document.fonts?.ready || Promise.resolve()).then(() => { if (root.isConnected) { assign(); run(); } });
+  return next;
+}
+
+/* Lucian UX/UI Prompt #228 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#228
+   카드 네 장 = 실습의 네 단계. 누르면 그 단계로 감. 빛 색을 잉걸불·금색으로. */
+function mountGlow(root){
+  const C = [...root.querySelectorAll('.u228-c')];
+  const rm = reduced();
+  let p = {x: -500, y: -500}, o = 0, oT = 0, raf = 0, last = 0;
+  function apply(){
+    const rb = root.getBoundingClientRect(), k = root.offsetWidth / (rb.width || 1);
+    C.forEach(el => { const r = el.getBoundingClientRect(), lx = p.x - (r.left - rb.left) * k, ly = p.y - (r.top - rb.top) * k;
+      el.style.setProperty('--cx', lx.toFixed(1) + 'px'); el.style.setProperty('--cy', ly.toFixed(1) + 'px'); el.style.setProperty('--o', o.toFixed(3));
+      el.firstElementChild.style.setProperty('--cx', (lx - 1.5).toFixed(1) + 'px'); el.firstElementChild.style.setProperty('--cy', (ly - 1.5).toFixed(1) + 'px'); });
+  }
+  function frame(now){
+    raf = 0; if (!root.isConnected) return;
+    const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now;
+    o += (oT - o) * (rm ? 1 : Math.min(1, dt * (oT ? 8 : 2.5))); apply();
+    if (Math.abs(oT - o) > 0.005) raf = requestAnimationFrame(frame);
+  }
+  const kick = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+  root.addEventListener('pointermove', e => { const b = root.getBoundingClientRect(), k = root.offsetWidth / (b.width || 1); p = {x: (e.clientX - b.left) * k, y: (e.clientY - b.top) * k}; oT = 1; apply(); kick(); });
+  root.addEventListener('pointerleave', () => { oT = 0; kick(); });
+  apply();
+}
+
+/* #002 자석 버튼: 누르면 화살표가 빠져나간 뒤 다음 미션으로 넘어감 */
+function mountMagnet(root){
+  const btn = root.querySelector('.u002-btn'), mag = root.querySelector('.u002-mag'), txt = root.querySelector('.u002-txt'), orb = root.querySelector('.u002-orb');
+  const rm = reduced();
+  root.addEventListener('pointermove', e => {
+    if (rm) return;
+    const r = btn.getBoundingClientRect(), dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), p = Math.max(0, 1 - Math.hypot(dx, dy) / 240);
+    mag.style.translate = `${(dx * 0.12 * p).toFixed(1)}px ${(dy * 0.22 * p).toFixed(1)}px`;
+    txt.style.translate = `${(dx * 0.05 * p).toFixed(1)}px ${(dy * 0.08 * p).toFixed(1)}px`;
+    orb.style.translate = `${(dx * 0.1 * p).toFixed(1)}px ${(dy * 0.14 * p).toFixed(1)}px`;
+  });
+  root.addEventListener('pointerleave', () => { mag.style.translate = txt.style.translate = orb.style.translate = '0px 0px'; });
+  btn.addEventListener('click', () => {
+    root.dataset.state = 'idle'; void btn.offsetWidth; root.dataset.state = 'go';
+    setTimeout(goNext, rm ? 0 : 420);
+  });
+}
+/* Lucian UX/UI Prompt #029 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#029
+   태그 = 머릿속에서 꺼낸 메모 한 장. 개수 제한을 40장으로 늘리고, 추천 칩을 민지의 메모로 바꿈. */
+function mountTags(root){
+  const field = root.querySelector('.u029-field'), input = root.querySelector('.u029-in');
+  const count = root.querySelector('.u029-n'), msg = root.querySelector('.u029-msg'), sgRow = root.querySelector('.u029-sg-row');
+  const MAX = 40; let t = 0;
+  const tags = () => [...field.querySelectorAll('.u029-tag:not(.out)')];
+  function say(text, warn){ msg.textContent = text; msg.classList.toggle('warn', !!warn); clearTimeout(t);
+    t = setTimeout(() => { if (root.isConnected) { msg.textContent = ''; msg.classList.remove('warn'); } }, 1800); }
+  function refresh(){
+    const n = tags().length; count.textContent = `${n}장`; count.classList.toggle('full', n >= MAX);
+    const have = tags().map(x => x.dataset.v);
+    [...sgRow.children].forEach(b => b.classList.toggle('used', have.includes(b.dataset.v)));
+  }
+  function make(note){
+    const tag = document.createElement('span'); tag.className = 'u029-tag'; tag.dataset.v = note.text; tag.dataset.id = note.id;
+    tag.style.setProperty('--c', colorOf(note.text));
+    const s = document.createElement('span'); s.textContent = note.text;
+    const x = document.createElement('button'); x.type = 'button'; x.className = 'u029-x'; x.setAttribute('aria-label', `"${note.text}" 메모 지우기`);
+    x.innerHTML = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 2l6 6M8 2L2 8"/></svg>';
+    x.addEventListener('click', () => { remove(tag); input.focus(); });
+    tag.append(s, x); return tag;
+  }
+  function add(raw, minji){
+    const v = raw.trim(); if (!v) return false;
+    if (tags().length >= MAX) { say('한 번에 40장까지 붙일 수 있어요', true); field.classList.remove('shake'); void field.offsetWidth; field.classList.add('shake'); return false; }
+    if (S.notes.some(n => n.text === v)) { say('이미 꺼낸 메모예요', true); return false; }
+    disarm();
+    const note = {id: nid(), text: v, co: '', kind: '', where: [], sure: ''};
+    if (minji != null) note.minji = minji;
+    S.notes.push(note); save();
+    field.insertBefore(make(note), input); refresh();
+    say(`"${v}" 한 장 꺼냈어요`);
+    return true;
+  }
+  function remove(tag){
+    if (tag.classList.contains('out')) return;
+    tag.classList.add('out'); S.notes = S.notes.filter(n => n.id !== tag.dataset.id); save();
+    say(`"${tag.dataset.v}" 메모를 지웠어요`);
+    setTimeout(() => { if (root.isConnected) { tag.remove(); refresh(); } }, 280);
+  }
+  const disarm = () => tags().forEach(x => x.classList.remove('armed'));
+  input.addEventListener('keydown', e => {
+    if (e.isComposing || e.keyCode === 229) return;
+    if (e.key === 'Enter') { e.preventDefault(); if (add(input.value)) input.value = ''; }
+    else if (e.key === 'Backspace' && !input.value) {
+      const all = tags(), last = all[all.length - 1]; if (!last) return;
+      if (last.classList.contains('armed')) remove(last); else { disarm(); last.classList.add('armed'); }
+    } else disarm();
+  });
+  input.addEventListener('blur', disarm);
+  field.addEventListener('click', e => { if (e.target === field) input.focus(); });
+  S.notes.forEach(n => field.insertBefore(make(n), input));
+  MINJI.notes.forEach(([v], i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'u029-sg'; b.dataset.v = v;
+    b.innerHTML = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2 6h8"/></svg>';
+    b.appendChild(document.createTextNode(v)); b.setAttribute('aria-label', `"${v}" 메모 붙이기`);
+    b.addEventListener('click', () => add(v, i)); sgRow.appendChild(b);
+  });
+  refresh();
+}
+
+/* Lucian UX/UI Prompt #255 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#255
+   칸 = 메모 종류. 칸이 많아 가로로 스크롤되게 함. 살짝 움직여야 집히도록 문턱을 두고, 그냥 누르면 회사를 붙일 메모로 고름. */
+let picked = null;
+function mountKanban(root){
+  const bd = root.querySelector('.u255-bd');
+  const COLS = [['', '아직 안 나눔', '#958B83'], ...KINDS.map(k => [k, k, KIND_COLOR[k]])];
+  const cols = COLS.map(([k, name, c], i) => {
+    const col = document.createElement('div'); col.className = 'u255-col'; col.dataset.c = i; col.dataset.k = k;
+    col.setAttribute('role', 'list'); col.setAttribute('aria-label', name);
+    col.innerHTML = `<div class="u255-ch"><i style="background:${c}"></i><span></span><b></b></div>`; col.querySelector('span').textContent = name;
+    bd.appendChild(col); return col;
+  });
+  function counts(pop){ cols.forEach((c, i) => { const b = c.querySelector('b'), n = c.querySelectorAll('.u255-cd:not(.is-lift):not(.is-land)').length + (c.querySelector('.u255-ph') ? 1 : 0);
+    if (b.textContent != n && pop && pop.includes(i)) { b.classList.remove('is-pop'); void b.offsetWidth; b.classList.add('is-pop'); } b.textContent = n; }); }
+  S.notes.forEach(n => {
+    const e = document.createElement('div'); e.className = 'u255-cd'; e.tabIndex = 0; e.setAttribute('role', 'listitem'); e.dataset.id = n.id;
+    e.innerHTML = '<b></b><span></span>'; e.querySelector('b').textContent = n.text; paintTag(e, n);
+    if (picked === n.id) e.classList.add('is-picked');
+    cols[Math.max(0, COLS.findIndex(c => c[0] === n.kind))].appendChild(e); bind(e);
+  });
+  counts();
+  const k = () => root.offsetWidth / (root.getBoundingClientRect().width || 1);
+  const local = (x, y) => { const r = root.getBoundingClientRect(), s = k(); return {x: (x - r.left) * s, y: (y - r.top) * s}; };
+  let drag = null, press = null;
+  function lift(e, ev){
+    const s = k(), r = e.getBoundingClientRect(), p = local(ev.clientX, ev.clientY), at = local(r.left, r.top);
+    const ph = document.createElement('div'); ph.className = 'u255-ph'; ph.style.height = (r.height * s) + 'px';
+    e.parentNode.insertBefore(ph, e);
+    drag = {e, ph, dx: p.x - at.x, dy: p.y - at.y, from: +e.parentNode.dataset.c, w: r.width * s};
+    e.style.width = drag.w + 'px'; e.style.left = at.x + 'px'; e.style.top = at.y + 'px'; e.classList.add('is-lift'); root.appendChild(e);
+    try { e.setPointerCapture(ev.pointerId); } catch {}
+  }
+  function bind(e){
+    e.addEventListener('pointerdown', ev => { if (drag) return; press = {x: ev.clientX, y: ev.clientY, id: ev.pointerId}; try { e.setPointerCapture(ev.pointerId); } catch {} ev.preventDefault(); });
+    e.addEventListener('pointermove', ev => {
+      if (press && !drag && Math.hypot(ev.clientX - press.x, ev.clientY - press.y) > 5) lift(e, ev);
+      if (!drag || drag.e !== e) return;
+      const p = local(ev.clientX, ev.clientY);
+      e.style.left = (p.x - drag.dx) + 'px'; e.style.top = (p.y - drag.dy) + 'px';
+      let col = null; cols.forEach(c => { const r = c.getBoundingClientRect(); if (ev.clientX >= r.left && ev.clientX <= r.right) col = c; });
+      cols.forEach(c => c.classList.toggle('is-over', c === col && +c.dataset.c !== drag.from));
+      if (!col) return;
+      const list = [...col.querySelectorAll('.u255-cd')].filter(c => c !== e); let before = null;
+      for (const c of list) { const r = c.getBoundingClientRect(); if (ev.clientY < r.top + r.height / 2) { before = c; break; } }
+      if (before) { if (drag.ph.nextSibling !== before) col.insertBefore(drag.ph, before); } else if (drag.ph.parentNode !== col || drag.ph.nextSibling) col.appendChild(drag.ph);
+      counts();
+    });
+    function up(){
+      if (press && !drag) { press = null; pick(e.dataset.id); return; }
+      press = null;
+      if (!drag || drag.e !== e) return;
+      const d = drag; drag = null;
+      const r = d.ph.getBoundingClientRect(), at = local(r.left, r.top);
+      e.classList.remove('is-lift'); e.classList.add('is-land'); e.style.left = at.x + 'px'; e.style.top = at.y + 'px';
+      cols.forEach(c => c.classList.remove('is-over'));
+      setTimeout(() => { d.ph.parentNode.insertBefore(e, d.ph); d.ph.remove(); e.classList.remove('is-land'); e.style.cssText = '';
+        const to = +e.parentNode.dataset.c; counts([d.from, to]); moved(e.dataset.id, COLS[to][0]); }, 290);
+    }
+    e.addEventListener('pointerup', up); e.addEventListener('pointercancel', () => { press = null; up(); });
+    e.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(e.dataset.id); return; }
+      const dir = ev.key === 'ArrowRight' ? 1 : ev.key === 'ArrowLeft' ? -1 : 0, c = +e.parentNode.dataset.c, to = c + dir;
+      if (!dir || to < 0 || to >= cols.length) return;
+      ev.preventDefault(); const h = cols[to].querySelector('.u255-ch'); cols[to].insertBefore(e, h.nextSibling); e.focus(); counts([c, to]); moved(e.dataset.id, COLS[to][0]);
+    });
+  }
+  function moved(id, kind){ const n = noteOf(id); if (n) { n.kind = kind; save(); } if ($('#matrix')) $('#matrix').innerHTML = matrixHTML(); }
+}
+function paintTag(e, n){
+  const t = e.querySelector('span');
+  t.className = n.co ? '' : 'none'; t.textContent = n.co || '회사?'; t.style.background = n.co ? colorOf(n.co) : '';
+}
+function pick(id){
+  picked = picked === id ? null : id;
+  document.querySelectorAll('.u255-cd').forEach(c => c.classList.toggle('is-picked', c.dataset.id === picked));
+  renderCoPanel();
+}
+function renderCoPanel(){
+  const box = $('#co-panel'); if (!box) return;
+  const n = picked && noteOf(picked);
+  if (!n) { box.innerHTML = `<p class="muted small">카드를 <b>살짝 누르면</b> 여기서 회사를 붙일 수 있어요. 끌면 종류 칸으로 옮겨져요.</p>`; return; }
+  box.innerHTML = `<div class="u019"><div class="u019-head"><div><b>"${esc(n.text)}"</b><small>어느 회사 일인가요?</small></div></div>
+    <div class="u019-list" role="group" aria-label="회사 고르기">${[...S.companies, COMMON].map(c => chipHTML(c, n.co === c, `data-act="setco" data-co="${esc(c)}"`, c === COMMON ? 'var(--ux-ink)' : colorOf(c))).join('')}</div></div>`;
+}
+
+/* Lucian UX/UI Prompt #039 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#039
+   목록 대신 미션의 단계 화면을 넣음. 알약 이동과 줄마다 밀려 들어오는 값은 원본 그대로. */
+const TAB_PANELS = {};
+function mountTabs(root){
+  const key = root.dataset.tabs, tabs = [...root.querySelectorAll('.u039-tab')], pill = root.querySelector('.u039-pill'), panel = root.querySelector('.u039-panel');
+  let cur = Math.max(0, tabs.findIndex(t => t.dataset.v === S[key])), list = null;
+  function movePill(animate){ const t = tabs[cur]; if (!animate) pill.style.transition = 'none';
+    pill.style.setProperty('--x', t.offsetLeft + 'px'); pill.style.setProperty('--w', t.offsetWidth + 'px');
+    if (!animate) { void pill.offsetWidth; pill.style.transition = ''; } }
+  function make(i){ const box = document.createElement('div'); box.className = 'u039-list'; box.innerHTML = TAB_PANELS[key](tabs[i].dataset.v);
+    [...box.children].forEach((r, k) => { r.classList.add('u039-row'); r.style.transitionDelay = (k * 45) + 'ms'; }); return box; }
+  function select(i, focus){
+    if (i === cur && list) return;
+    const dir = i > cur ? 1 : -1; cur = i; S[key] = tabs[i].dataset.v; save();
+    tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+    if (focus) tabs[i].focus();
+    movePill(true);
+    const next = make(i), old = list; list = next;
+    if (!old || reduced()) { if (old) old.remove(); panel.appendChild(next); mountAll(next); return; }
+    [...next.children].forEach(r => { r.style.transform = `translateX(${dir * 70}%)`; r.style.opacity = '0'; });
+    old.style.position = 'absolute'; old.style.inset = '0';
+    panel.appendChild(next); mountAll(next); void next.offsetWidth;
+    [...next.children].forEach(r => { r.style.transform = ''; r.style.opacity = ''; });
+    [...old.children].forEach(r => { r.style.transform = `translateX(${-dir * 60}%)`; r.style.opacity = '0'; });
+    setTimeout(() => old.remove(), 700);
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(i));
+    t.addEventListener('keydown', e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); select((i + d + tabs.length) % tabs.length, true); } });
+    t.tabIndex = i === cur ? 0 : -1;
+  });
+  list = make(cur); panel.appendChild(list); mountAll(list);
+  requestAnimationFrame(() => movePill(false));
+}
+
+/* Lucian UX/UI Prompt #014 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#014 */
+function mountCheck(root){
+  const ins = [...root.querySelectorAll('.u014-in')], num = root.querySelector('.u014-num');
+  function update(){ const n = ins.filter(i => i.checked).length;
+    root.style.setProperty('--p', (n / ins.length).toFixed(3)); num.textContent = `${n}/${ins.length}`; root.classList.toggle('is-all', n === ins.length); }
+  ins.forEach(i => i.addEventListener('change', () => { S.checks[i.dataset.ck] = i.checked; save(); update(); }));
+  update();
+}
+
+/* Lucian UX/UI Prompt #008 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#008
+   설치 명령 한 줄 → 여러 줄 코드 상자. 복사가 막히면 글자를 선택해 둠. */
+function mountCopy(root){
+  const btn = root.querySelector('.u008-btn'), tip = root.querySelector('.u008-tip'), code = root.querySelector('.u008-code'); let t = 0;
+  tip.textContent = '';
+  const selectIt = () => { const r = document.createRange(); r.selectNodeContents(code); const s = getSelection(); s.removeAllRanges(); s.addRange(r); tip.textContent = '선택해 뒀어요 · Ctrl+C'; };
+  btn.addEventListener('click', () => {
+    try { navigator.clipboard.writeText(code.textContent).catch(selectIt); } catch { selectIt(); }
+    clearTimeout(t); root.classList.remove('is-copied'); void root.offsetWidth; root.classList.add('is-copied'); tip.textContent = '복사됨';
+    t = setTimeout(() => { if (root.isConnected) { root.classList.remove('is-copied'); tip.textContent = ''; } }, 1800);
+  });
+}
+function mountAll(scope){
+  scope.querySelectorAll('[data-copy]').forEach(mountCopy);
+  scope.querySelectorAll('[data-check]').forEach(mountCheck);
+  scope.querySelectorAll('[data-tabs]').forEach(mountTabs);
+  scope.querySelectorAll('[data-magnet]').forEach(mountMagnet);
+}
+
+/* ================= 미션 화면 ================= */
+const STORY = ['엉킨 생각', '메모 16장', '7군데', '13장', '한 문장'];
+const STORY_TXT = ['처음엔 이랬어요. 뭐가 문제인지도 모르는 상태였죠.', '머릿속을 전부 꺼내니 메모 16장이 나왔어요.', '나눠 보니 날짜와 할 일이 7군데에 흩어져 있었어요.',
+  '16장 중 13장이 애매하거나 모르는 것이었어요. 불안은 여기서 왔어요.', '그래서 문제를 한 문장으로 말할 수 있게 됐어요. 자동화는 그다음이에요.'];
+function m0(){
+  const phases = [['분석', '미션 01–03', '꺼내고, 나누고, 엉킨 곳을 찾아요', 1], ['발견', '미션 04–05', '증상에서 뿌리까지, 한 문장으로', 4],
+    ['혁신', '미션 06–08', 'Apps Script와 n8n으로 직접 만들어요', 6], ['정리', '미션 09', '회사 업무로 옮겨 써요', 9]];
+  return `<section class="hero">
+    <div class="ux u352"><canvas class="u352-cv" role="img" aria-label="실처럼 흐르는 빛줄기. 커서를 대면 소용돌이가 생기고, 누르면 색이 바뀌어요"></canvas><span class="u352-nm" aria-live="polite"></span></div>
+    <div class="hero-top"><span class="label">AX 문제정의 실습 · <b>10 missions</b> · 혼자 2–3시간</span><span class="label">실타래 실습실</span></div>
+    <h1>SILTARAE<span>엉킨 생각을 <em>한 줄로.</em></span></h1>
+    <div class="hero-low">
+      <div class="hint"><i></i>화면을 눌러 실 색을 바꿔 보세요</div>
+      <div class="hero-side"><b>ONLY A QUESTION</b><p>"문제를 알려면 데이터가 필요하다"고요? 민지는 데이터 없이 시작했어요. 꺼내고, 나누고, 엉킨 곳을 찾으면 진짜 문제가 보이고, 숫자는 그때 생깁니다. 자동화는 그다음이에요.</p><a href="#story" class="small">어떻게 풀리는지 보기 ↓</a></div>
+    </div></section>
+  <section class="chapter" id="story">
+    <div class="ux u378"><canvas class="u378-cv" role="img" aria-label="빛 알갱이가 모여 글자가 돼요. 누르면 다음 장면"></canvas><span class="u378-cap">TAP · 다음 장면</span></div>
+    <div class="stack"><span class="label">취준생 민지의 이야기</span><h2 id="story-h">${STORY[0]}</h2><p class="lead" id="story-p">${STORY_TXT[0]}</p>
+      <div class="row"><button class="btn ghost" data-next-word>다음 장면 →</button><span class="label" id="story-n">01 / 05</span></div></div>
+  </section>
+  <section class="stack"><span class="label">네 단계 · 눌러서 바로 가기</span>
+    <div class="ux u228"><div class="u228-gd" role="list" aria-label="실습 네 단계">${phases.map(([t, s, d, to], k) => `<button class="u228-c" role="listitem" data-act="go" data-to="${to}"><div class="u228-in"><span class="u228-ic">0${k + 1}</span><span class="label">${s}</span><b>${t}</b><span class="d">${d}</span></div></button>`).join('')}</div></div>
+  </section>
+  <section class="stack"><span class="label">민지가 끝에 갖게 된 것</span>
+    <div class="stats4"><div><b>16</b><span>꺼낸 메모</span></div><div><b>7</b><span>정보가 흩어진 곳</span></div><div><b>13</b><span>애매하거나 모르는 메모</span></div><div><b>1</b><span>매일 아침 받는 브리핑</span></div></div>
+    <p class="small muted">미션마다 민지의 예시가 먼저 나와요. 처음엔 민지 예시로 끝까지 가 보고, 두 번째에 내 생각으로 해 보세요. 입력한 내용은 이 브라우저에만 저장돼요.</p>
+  </section>
+  ${why(0)}${foot(0)}`;
+}
+function mount0(){
+  mountFlow($('.u352')); mountGlow($('.u228'));
+  const pad = n => String(n).padStart(2, '0');
+  const next = mountWords($('.u378'), STORY, i => { $('#story-h').textContent = STORY[i]; $('#story-p').textContent = STORY_TXT[i]; $('#story-n').textContent = `${pad(i + 1)} / ${pad(STORY.length)}`; });
+  $('[data-next-word]').addEventListener('click', next);
+}
+
+function m1(){
+  return `${head(1, '머릿속에 있는 걸 전부 꺼내세요', '정리하지 말고 떠오르는 대로 한 장씩 적고 Enter를 누르세요. 할 일, 날짜, 궁금한 것, 걱정, 감정까지 전부요. 아래 민지의 메모를 눌러서 붙여 볼 수도 있어요.')}
+  <div class="sheet">
+    <div class="ux u029"><div class="u029-head"><b>내 머릿속</b><span class="u029-n">0장</span></div>
+      <div class="u029-field"><input class="u029-in" type="text" placeholder="예: ○○회사 인적성 날짜가 언제였더라" aria-label="메모 붙이기" autocomplete="off"></div>
+      <p class="u029-msg" aria-live="polite"></p>
+      <div class="spread" style="margin:0 4px 10px"><span class="label">민지가 꺼낸 것 · 눌러서 붙이기</span>${fillBtn(1, '16장 한 번에 붙이기')}</div>
+      <div class="u029-sg-row" role="group" aria-label="민지의 메모"></div></div>
+  </div>
+  <div class="sheet"><div class="spread"><h3>더 꺼내기</h3><button class="btn ghost" data-act="hint">AI에게 질문 받기</button></div>
+    <p class="small muted">AI가 내 메모를 보고 "혹시 이런 것도 걸려 있나요?" 같은 질문을 세 개 던져요. 대신 정리해 주지는 않아요.</p>
+    <div id="hint-out" style="white-space:pre-wrap"></div></div>
+  ${why(1)}${foot(1)}`;
+}
+function mount1(){ mountTags($('.u029')); }
+
+function m2(){
+  if (!S.notes.length) return `${head(2, '메모를 종류와 회사로 나누세요')}${needNotes()}${why(2)}${foot(2)}`;
+  return `${head(2, '메모를 종류와 회사로 나누세요', '카드를 끌어서 종류 칸에 넣고, 살짝 눌러 회사를 붙이세요. 다 나누면 아래에 표가 그려져요. 머릿속에서 뒤엉켜 있던 게 사실 표 한 장이었다는 걸 보게 됩니다.')}
+  <div class="sheet"><div class="spread"><h3>지원 중인 회사</h3>${fillBtn(2)}</div>
+    <div class="u019-list">${S.companies.map(c => chipHTML(c + ' ✕', true, `data-act="delco" data-co="${esc(c)}" aria-label="${esc(c)} 빼기"`, colorOf(c))).join('') || '<span class="small faint">아직 없어요</span>'}</div>
+    <div class="row"><input class="inp" id="co-in" placeholder="회사 이름 추가" style="flex:1 1 200px" aria-label="회사 추가"><button class="btn ghost" data-act="addco">추가</button></div></div>
+  <p class="small faint board-hint">종류 칸이 7개예요. 옆으로 밀면 나머지 칸이 나와요 →</p>
+  <div class="ux u255"><div class="u255-bd"></div></div>
+  <div class="sheet" id="co-panel"></div>
+  <div class="sheet"><h3>펼쳐 본 내 머릿속</h3><div id="matrix">${matrixHTML()}</div></div>
+  <div class="minji"><span class="hand">머릿속에선 끝이 없는 줄 알았는데, 표로 보니 칸이 정해져 있었다.</span></div>
+  ${why(2)}${foot(2)}`;
+}
+function mount2(){ if (S.notes.length) { mountKanban($('.u255')); renderCoPanel(); } }
+
+/* 미션 3: 한 장씩 */
+function knotHTML(){
+  const s = stats();
+  if (!s.tagged) return '<div class="sheet"><p class="muted">메모마다 표시하면 엉킨 곳이 숫자로 드러나요.</p></div>';
+  const maxK = Math.max(1, ...s.byKind.map(k => k.total)), places = Object.entries(s.placeCount).sort((a, b) => b[1] - a[1]), worst = worstKind(s);
+  return `<div class="big">
+      <div><span class="num"><span data-count="${s.places}">0</span><small>군데</small></span><p>정보가 흩어져 있는 곳</p></div>
+      <div><span class="num"><span data-count="${s.unsure}">0</span><small>/${s.total}</small></span><p>애매하거나 모르는 메모</p></div>
+      <div><span class="num"><span data-count="${s.headOnly}">0</span><small>장</small></span><p>머릿속에만 있는 메모</p></div></div>
+    <div class="cols">
+      <div class="sheet"><div class="spread"><h3>종류별 엉킴</h3><span class="legend"><span><i class="b-모름"></i>모름</span><span><i class="b-애매"></i>애매</span><span><i class="b-확실"></i>확실</span></span></div>
+        <div class="bars">${s.byKind.map(k => `<div class="bar-row"><span>${esc(k.k)}</span><div class="track" style="width:${k.total / maxK * 100}%">${['모름','애매','확실'].map(x => k[x] ? `<i class="b-${x}" style="width:${k[x] / k.total * 100}%"></i>` : '').join('')}</div><span class="v">${k.모름 + k.애매}/${k.total}</span></div>`).join('')}</div>
+        ${worst && (worst.모름 + worst.애매) ? `<p class="small">가장 엉킨 곳은 <mark><b>${esc(worst.k)}</b></mark>이에요.</p>` : ''}</div>
+      <div class="sheet"><h3>정보가 있는 곳</h3>
+        <div class="bars">${places.map(([p, c]) => `<div class="bar-row"><span>${esc(p)}</span><div class="track" style="width:${c / places[0][1] * 100}%"><i style="width:100%;background:${colorOf(p)}"></i></div><span class="v">${c}장</span></div>`).join('')}</div></div>
+    </div>`;
+}
+function countUp(scope){
+  scope.querySelectorAll('[data-count]').forEach(el => {
+    const to = +el.dataset.count, from = +(el.dataset.from || 0);
+    if (reduced() || from === to) { el.textContent = to; return; }
+    const t0 = performance.now();
+    const step = now => { const p = Math.min(1, (now - t0) / 500); el.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+let lastStats = {};
+function refreshKnot(){
+  const box = $('#knot'); if (!box) return;
+  // 숫자가 생기면, 그 숫자가 어디서 왔는지 짚어 줍니다
+  box.innerHTML = knotHTML() + (stats().tagged ? '<div class="oneline">방금 나온 숫자가 바로 <b>데이터</b>예요. 어디서 모아 온 게 아니라, <b>어디를 볼지 정하자</b> 생긴 숫자예요. 데이터가 없어서 모르는 게 아니라, 어디를 볼지 몰라서 모르는 거였어요.</div>' : '');
+  box.querySelectorAll('[data-count]').forEach((el, i) => { el.dataset.from = lastStats[i] ?? 0; lastStats[i] = +el.dataset.count; });
+  countUp(box);
+}
+function deckHTML(){
+  const i = Math.min(S.m3i || 0, S.notes.length - 1), n = S.notes[i];
+  const where = n.where || [];
+  return `<div class="deck">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card-note" style="--d:0"><div class="meta"><span>${i + 1} / ${S.notes.length}</span><span>${esc(n.co || '')} ${n.kind ? '· ' + esc(n.kind) : ''}</span></div><div class="t">${esc(n.text)}</div></div>
+      <div class="beads" role="group" aria-label="메모로 바로 가기">${S.notes.map((x, k) => `<button class="bead ${x.sure || ''} ${k === i ? 'cur' : ''}" data-act="m3go" data-i="${k}" aria-label="${k + 1}번째 메모${x.sure ? ', ' + x.sure : ''}"></button>`).join('')}</div>
+      <div class="row"><button class="btn quiet" data-act="m3go" data-i="${Math.max(0, i - 1)}">← 이전</button><button class="btn ghost" data-act="m3go" data-i="${Math.min(S.notes.length - 1, i + 1)}">다음 메모 ${ARROW}</button></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div class="ux u019"><div class="u019-head"><div><b>이 정보는 어디에 있나요?</b><small>여러 곳이면 모두 고르세요</small></div>
+        <span class="u019-cnt"><span class="u019-dots" aria-hidden="true">${PLACES.map((p, k) => `<i class="${k < where.length ? 'on' : ''}"></i>`).join('')}</span><span>${where.length}곳</span></span></div>
+        <div class="u019-list" role="group" aria-label="정보가 있는 곳">${PLACES.map(p => chipHTML(p, where.includes(p), `data-act="where" data-v="${p}"`, colorOf(p))).join('')}</div></div>
+      <div><b style="font-size:17px">지금 얼마나 확실해요?</b>
+        <div class="sure" style="margin-top:12px" role="group" aria-label="확실한 정도">${SURE.map(x => `<button data-act="sure" data-v="${x}" aria-pressed="${n.sure === x}" style="--c:${SURE_INFO[x][0]}">${x}<small>${SURE_INFO[x][1]}</small></button>`).join('')}</div></div>
+    </div></div>`;
+}
+function m3(){
+  if (!S.notes.length) return `${head(3, '어디가 엉켜 있는지 찾으세요')}${needNotes()}${why(3)}${foot(3)}`;
+  return `${head(3, '어디가 엉켜 있는지 찾으세요', '메모를 한 장씩 넘기면서 두 가지만 고르세요. 이 정보가 <b>어디에 있는지</b>, 그리고 지금 <b>얼마나 확실한지</b>. 확실한 정도를 고르면 다음 장으로 넘어가요.')}
+  <div class="sheet"><div class="spread"><h3>메모 한 장씩</h3>${fillBtn(3)}</div><div id="deck">${deckHTML()}</div></div>
+  <div id="knot" style="display:flex;flex-direction:column;gap:16px"></div>
+  <div class="minji"><span class="hand">7군데라니. 확인할 곳이 이렇게 많으니 뭘 봐도 불안할 수밖에.</span></div>
+  ${why(3)}${foot(3)}`;
+}
+function mount3(){ lastStats = {}; refreshKnot(); }
+
+/* Lucian UX/UI Prompt #086 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#086
+   미리 정한 답 대신 실제 AI 답을 낱말 단위로 띄움. 점 세 개, 낱말 떠오르기, 깜빡이는 커서, 멈추기는 원본 그대로. */
+const COACH_SUGS = ['그냥 일정 관리 앱 쓰면 되지 않을까요?', '불안한 이유를 잘 모르겠어요', '제가 찾은 뿌리가 맞는지 봐 주세요'];
+const SEND_ICON = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 11.5V2.5M3 6.5l4-4 4 4"/></svg>보내기';
+const chatHTML = () => [{role: 'assistant', content: COACH_GREETING}, ...S.chat].map(m => m.role === 'user'
+  ? `<div class="u086-q">${esc(m.content)}</div>`
+  : `<div class="u086-a"><span class="u086-av" aria-hidden="true"></span><div class="u086-body">${esc(m.content)}</div></div>`).join('');
+const coachBlock = () => `<div class="stack"><div class="spread"><span class="label">해석 코치 · 답 대신 질문만 해요</span>${S.chat.length ? '<button class="btn quiet" data-act="chatreset">대화 지우기</button>' : ''}</div>
+  <div class="ux u086" id="coach"><div class="u086-log" id="chat-log" aria-live="polite">${chatHTML()}</div>
+    <div class="u086-sug" role="group" aria-label="이렇게 물어봐도 돼요">${COACH_SUGS.map(s => `<button type="button" data-act="sug">${esc(s)}</button>`).join('')}</div>
+    <div class="u086-bar"><textarea id="chat-in" rows="1" placeholder="코치에게 말하기 · Enter로 보내기" aria-label="코치에게 보낼 말"></textarea><button class="u086-ctl" type="button" data-act="send" id="send-btn">${SEND_ICON}</button></div></div>
+  <p class="small muted" id="chat-note"></p></div>`;
+let chatBusy = false;
+async function sendChat(text){
+  if (chatBusy){ ctl?.abort(); return; }
+  const box = $('#chat-in'), msg = String(text ?? box.value).trim(); if (!msg) return;
+  const note = $('#chat-note'), log = $('#chat-log'), coach = $('#coach'), btn = $('#send-btn');
+  const sample = await getSample();
+  if (!sample){ note.textContent = 'AI를 쓸 수 없는 환경이에요. 민지의 해석과 자동 점검을 참고해 주세요.'; return; }
+  S.chat.push({role: 'user', content: msg}); box.value = ''; save();
+  log.insertAdjacentHTML('beforeend', `<div class="u086-q">${esc(msg)}</div>`);
+  const a = document.createElement('div'); a.className = 'u086-a';
+  a.innerHTML = '<span class="u086-av" aria-hidden="true"></span><div class="u086-body"><span class="u086-dots" aria-label="생각하는 중"><i></i><i></i><i></i></span></div>';
+  log.appendChild(a); log.scrollTop = log.scrollHeight;
+  const body = a.querySelector('.u086-body'), caret = document.createElement('span'); caret.className = 'u086-caret'; caret.setAttribute('aria-hidden', 'true');
+  chatBusy = true; coach.classList.add('is-gen'); btn.innerHTML = '<i aria-hidden="true"></i>멈추기'; note.textContent = '';
+  let shown = '';
+  const paint = t => {
+    if (!shown || !t.startsWith(shown)) { body.textContent = ''; shown = ''; }
+    const add = t.slice(shown.length); shown = t;
+    add.split(/(\s+)/).filter(Boolean).forEach(w => { if (/^\s+$/.test(w)) body.appendChild(document.createTextNode(w)); else { const sp = document.createElement('span'); sp.className = 'u086-w'; sp.textContent = w; body.appendChild(sp); } });
+    body.appendChild(caret); log.scrollTop = log.scrollHeight;
+  };
+  ctl = new AbortController();
+  try {
+    const {text: out} = await sample([{role: 'user', content: coachRules()}, {role: 'assistant', content: COACH_GREETING}, ...S.chat.slice(-12)],
+      {modelTier: 'quick', kind: 'coach', cache: false, signal: ctl.signal, onText: ({text: t}) => paint(t)});
+    paint(out); caret.remove();
+    S.chat.push({role: 'assistant', content: out}); save();
+  } catch (e){
+    caret.remove();
+    if (e?.code === 'cancelled' && shown){ S.chat.push({role: 'assistant', content: shown}); save(); body.insertAdjacentHTML('beforeend', '<span class="u086-stop">— 여기서 멈췄어요</span>'); }
+    else { S.chat.pop(); save(); a.remove(); log.lastElementChild?.remove(); box.value = msg; note.textContent = errCopy(e); }
+  } finally { chatBusy = false; coach.classList.remove('is-gen'); if (btn.isConnected) btn.innerHTML = SEND_ICON; }
+}
+function m4(){
+  const w = S.why, s = stats(), feel = S.notes.filter(n => n.kind === '마음').map(n => n.text);
+  const rung = (k, label, ph, c, cls = '') => `<div class="rung ${cls}" style="--c:${c}"><label class="f">${label}<textarea class="inp rung-in" rows="1" placeholder="${esc(ph)}" data-bind="why.${k}">${esc(w[k])}</textarea></label></div>`;
+  return `${head(4, '증상에서 뿌리까지 내려가 보세요', '눈에 보이는 불편에서 출발해 "왜?"를 두 번 묻고, 뿌리에 닿으면 그게 어떤 종류의 문제인지 이름을 붙입니다. 미션 3의 숫자가 "왜?"의 근거가 돼요.')}
+  <div class="oneline">${s.tagged ? `정보가 <b>${s.places}군데</b>에 흩어져 있고, ${s.total}장 중 <b>${s.unsure}장</b>이 애매하거나 모름, <b>${s.headOnly}장</b>은 머릿속에만 있어요.` : '미션 3을 마치면 여기에 근거 숫자가 나와요.'}${feel.length ? `<br><span class="small">감정 메모: ${feel.map(t => `"${esc(t)}"`).join(', ')}</span>` : ''}</div>
+  <div class="sheet"><div class="spread"><h3>왜? 사다리</h3>${fillBtn(4)}</div>
+    <div class="ladder">
+      ${rung('symptom', '증상 · 지금 가장 크게 느끼는 불편이나 감정', '예: 뭐부터 해야 할지 모르겠고 불안하다', THREAD[4])}
+      ${rung('w1', '왜? · 그건 왜 그런가요', '예: 날짜가 확실하지 않은 게 많다', THREAD[1])}
+      ${rung('w2', '또 왜? · 그건 또 왜 그런가요', '예: 정보가 여러 곳에 흩어져 있다', THREAD[2])}
+      ${rung('root', '뿌리 · 이게 바뀌면 위의 것들이 같이 풀리는 원인', '예: 한 곳에 모아 보는 판이 없다', THREAD[0], 'root')}
+    </div></div>
+  <div class="sheet"><h3>이건 어떤 문제인가요?</h3>
+    <div class="types">${Object.entries(TYPES).map(([k, t]) => `<button class="type" aria-pressed="${w.type === k}" data-act="type" data-v="${k}"><b>${k} 문제</b><span>${esc(t.desc)}</span></button>`).join('')}</div>
+    <div id="dir">${w.type ? `<div class="dir"><b>${w.type} 문제라면:</b> ${esc(TYPES[w.type].dir)}</div>` : '<p class="small faint">하나를 고르면 어떤 방향으로 풀어야 하는지 알려 드려요.</p>'}</div></div>
+  <details class="more minji"><summary>민지의 해석 보기</summary>
+    <div class="ladder small" style="margin-top:12px">
+      <div class="rung" style="--c:${THREAD[4]}"><span class="faint">증상</span><br>${esc(MINJI.why.symptom)}</div>
+      <div class="rung" style="--c:${THREAD[1]}"><span class="faint">왜?</span><br>${esc(MINJI.why.w1)}</div>
+      <div class="rung" style="--c:${THREAD[2]}"><span class="faint">또 왜?</span><br>${esc(MINJI.why.w2)}</div>
+      <div class="rung root"><span class="faint">뿌리</span><br><b>${esc(MINJI.why.root)}</b></div></div>
+    <span class="hand">시간이 부족한 줄 알았는데, 판이 안 보이는 거였다. 정보 문제!</span></details>
+  ${coachBlock()}${why(4)}${foot(4)}`;
+}
+
+function m5(){
+  const p = S.prob, w = S.why;
+  const f = (k, label, ph) => `<label class="f">${label}<input class="inp" placeholder="${esc(ph)}" value="${esc(p[k])}" data-bind="prob.${k}" data-live="m5"></label>`;
+  return `${head(5, '해석한 걸 한 문장으로 정의하세요', '다른 사람이 읽어도 무엇이 왜 문제인지 알 수 있게 씁니다. "일정 관리 앱이 필요하다"는 문제가 아니라 해결책이에요.')}
+  ${w.root || w.type ? `<div class="sheet"><h3>미션 4에서 찾은 것</h3><p class="small">${w.symptom ? `증상: ${esc(w.symptom)}<br>` : ''}${w.root ? `뿌리: <b>${esc(w.root)}</b><br>` : ''}${w.type ? `유형: ${esc(w.type)} 문제` : ''}</p></div>` : ''}
+  <div class="minji"><div class="spread"><span class="hand">민지의 첫 문장과 고친 문장</span>${fillBtn(5)}</div>
+    <p class="small"><s class="faint">일정 관리 앱이 필요하다.</s> <span class="muted">← 코치: "그건 해결책이에요. 앱이 없어서 생긴 진짜 불편은 뭐였죠?"</span></p>
+    <p>나는 <b>${esc(MINJI.prob.sit)}</b> <b>${esc(MINJI.prob.cause)}</b> <b>${esc(MINJI.prob.eff)}</b>. 그래서 필요한 것은 <b>${esc(MINJI.prob.need)}</b>.</p></div>
+  <div class="sheet"><div class="cols">
+      ${f('sit', '상황 · 나는 …', '예: 5개 회사의 일정이 동시에 진행되면서')}
+      ${f('cause', '원인 · … 때문에', '예: 날짜가 7군데에 흩어져 있어서')}
+      ${f('eff', '결과 · … 한다', '예: 뭐부터 할지 정하지 못하고 불안하다')}
+      ${f('need', '필요 · 그래서 필요한 것은 …', '도구 이름 말고 원하는 상태')}</div>
+    <div class="sentence" id="sentence">${sentenceHTML()}</div>
+    <div id="checks" style="display:flex;flex-direction:column;gap:6px">${checksHTML()}</div></div>
+  ${coachBlock()}${why(5)}${foot(5)}`;
+}
+
+function m6(){
+  const d = S.design, md = MINJI.design;
+  const f = (k, label, ph, ta) => `<label class="f">${label}${ta ? `<textarea class="inp" placeholder="${esc(ph)}" data-bind="design.${k}">${esc(d[k])}</textarea>` : `<input class="inp" placeholder="${esc(ph)}" value="${esc(d[k])}" data-bind="design.${k}">`}</label>`;
+  return `${head(6, '자동화 설계도를 그리세요', '미션 5의 "필요한 상태"를 만들려면 언제, 무엇을 보고, 무엇을 해서, 어디로 보내야 할까요? 그다음 사람·자동·AI의 역할을 나눕니다.')}
+  ${S.why.type ? `<div class="dir"><b>${esc(S.why.type)} 문제</b>로 해석했어요. ${esc(TYPES[S.why.type].dir)}</div>` : ''}
+  <div class="sheet"><div class="spread"><h3>흐름</h3>${fillBtn(6)}</div>
+    <div class="flow">${f('trig', '언제 (계기)', '예: 매일 아침 8시')}${f('inp', '무엇을 보고 (입력)', '예: 지원현황 시트')}${f('proc', '무엇을 하고 (처리)', '예: 3일 안 일정 고르기')}${f('out', '어디로 보낸다 (출력)', '예: 아침 브리핑 메일')}</div></div>
+  <div class="sheet"><h3>역할 나누기</h3><div class="roles">
+      <div style="display:flex;flex-direction:column;gap:8px"><span class="role-tag" style="--c:${THREAD[3]}">사람</span>${f('human', '내가 계속 할 일', '판단, 결정처럼 사람이 해야 하는 일', true)}</div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span class="role-tag" style="--c:${THREAD[2]}">자동</span>${f('auto', '규칙대로 돌릴 일', '정렬, 날짜 계산, 정해진 시간에 보내기', true)}</div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span class="role-tag" style="--c:${THREAD[0]}">AI</span>${f('ai', 'AI에게 맡길 일', '글 읽고 정리하기, 요약, 코드 작성', true)}</div></div></div>
+  <details class="more minji"><summary>민지의 설계도 보기</summary>
+    <div class="blocks4" style="margin-top:12px"><div><span class="faint small">계기</span>${esc(md.trig)}</div><div><span class="faint small">입력</span>${esc(md.inp)}</div><div><span class="faint small">처리</span>${esc(md.proc)}</div><div><span class="faint small">출력</span>${esc(md.out)}</div></div>
+    <span class="hand">7군데를 한 곳(시트)으로 모으는 게 먼저. 날짜 모르는 것도 숨기지 말고 매일 보이게!</span></details>
+  ${why(6)}${foot(6)}`;
+}
+
+TAB_PANELS.tab7 = v => {
+  if (v !== 'own') return `
+    ${checklist('따라하기 진행', '단계를 끝낼 때마다 체크하세요', [['g1', '시트 만들고 붙여넣기', '1', THREAD[1]], ['g2', '코드 붙여넣고 저장', '2', THREAD[0]], ['g3', '실행하고 권한 허용', '3', THREAD[3]], ['g4', '메일 도착 확인', '4', THREAD[2]], ['g5', '매일 자동 실행 등록', '5', THREAD[4]]])}
+    <div class="sheet"><ol class="steps">
+      <li><div><b>새 구글 시트를 만들고 아래쪽 탭 이름을 <span class="path">지원현황</span>으로 바꾸세요.</b>
+        <p class="small muted">주소창에 <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a>를 치면 바로 만들어져요. 아래 예시를 A1 칸에 붙여넣으세요. 날짜는 오늘 기준으로 계산돼 있고, 일부러 날짜를 비워 둔 줄도 있어요.</p>${copyBox('rows', sampleRows())}</div></li>
+      <li><div><b>메뉴에서 <span class="path">확장 프로그램 → Apps Script</span>를 엽니다.</b>
+        <p class="small muted">원래 있던 <span class="path">function myFunction()</span>은 지우고 아래 코드를 통째로 붙여넣은 뒤 저장(Ctrl+S)하세요.</p>${copyBox('gas', $('#gas-code').textContent)}</div></li>
+      <li><div><b>위쪽 함수 선택 칸에서 <span class="path">morningBriefing</span>을 고르고 실행을 누릅니다.</b>
+        <p class="small muted">처음엔 "권한 검토" 창이 떠요. 내 계정을 고르고 "확인되지 않은 앱"이 나오면 <b>고급 → (프로젝트 이름)(으)로 이동</b>을 눌러 허용하세요. 내가 만든 스크립트라서 나오는 정상적인 경고예요.</p></div></li>
+      <li><div><b>메일함을 확인하세요.</b>
+        <p class="small muted">"[오늘의 지원 브리핑] 임박 3 · 확인 필요 2"가 오면 성공이에요. 날짜를 비워 둔 파란은행 1차 발표와 그린에너지가 "오늘 확인할 것"에 들어가 있어야 해요.</p></div></li>
+      <li><div><b>함수를 <span class="path">createDailyTrigger</span>로 바꿔 한 번 더 실행합니다.</b>
+        <p class="small muted">이제 매일 아침 8시에 브리핑이 와요.</p></div></li>
+      <li><div><b>생각해 보기: 이 자동화는 미션 3의 어떤 엉킴을 겨냥하나요?</b>
+        <p class="small muted">흩어진 7군데 → 시트 한 곳. 애매하거나 모르는 것 → 매일 "오늘 확인할 것"으로 눈앞에. 머릿속에만 있던 것 → 시트에 적어야 브리핑에 나옴.</p></div></li>
+    </ol></div>`;
+  const d = S.design, ready = d.trig && d.inp && d.proc && d.out;
+  return `<div class="sheet"><p>미션 6의 내 설계도를 AI에게 보내서 Apps Script 코드와 설치 순서를 받습니다.</p>
+    <div class="blocks4"><div><span class="faint small">계기</span>${esc(d.trig || '(비어 있음)')}</div><div><span class="faint small">입력</span>${esc(d.inp || '(비어 있음)')}</div><div><span class="faint small">처리</span>${esc(d.proc || '(비어 있음)')}</div><div><span class="faint small">출력</span>${esc(d.out || '(비어 있음)')}</div></div>
+    ${ready ? '' : '<p class="check warn"><span>!</span><span>미션 6의 흐름 네 칸을 먼저 채워 주세요.</span></p>'}
+    <div class="row"><button class="btn hot" data-act="gen"${ready ? '' : ' disabled'}>내 설계도로 코드 만들기</button><button class="btn quiet" data-act="stop" id="gen-stop" hidden>멈추기</button></div>
+    <p class="small muted" id="gen-note">Apps Script만으로 어려운 설계라면 AI가 그렇다고 말하고 더 작은 첫 단계를 제안합니다.</p>
+    ${copyBox('gen-out', S.gasOwn || '여기에 결과가 나타납니다.', true)}</div>`;
+};
+function m7(){
+  return `${head(7, 'Apps Script로 아침 브리핑을 만드세요', 'Google 계정만 있으면 됩니다. 따라하기는 민지의 아침 브리핑을 그대로 만들고, 내 문제 트랙은 내 설계도로 AI가 코드를 써 줘요.')}
+  ${pillTabs('tab7', [['follow', '따라하기'], ['own', '내 문제로 만들기']])}
+  ${why(7)}${foot(7)}`;
+}
+
+TAB_PANELS.tab8 = v => {
+  if (v !== 'mail') return `
+    <div class="blocks4"><div><span class="role-tag" style="--c:${THREAD[1]}">계기</span>Schedule Trigger<span class="faint small">매일 아침 8시</span></div><div><span class="role-tag" style="--c:${THREAD[2]}">입력</span>Google Sheets<span class="faint small">지원현황 읽기</span></div><div><span class="role-tag" style="--c:${THREAD[3]}">처리</span>Code<span class="faint small">임박·모름·지남 나누기</span></div><div><span class="role-tag" style="--c:${THREAD[0]}">출력</span>Gmail<span class="faint small">브리핑 메일</span></div></div>
+    ${checklist('n8n 기본 진행', '아침 브리핑을 블록으로', [['n1', 'n8n 클라우드 가입', '1', THREAD[1]], ['n2', '블록 붙여넣기', '2', THREAD[0]], ['n3', '시트 연결', '3', THREAD[3]], ['n4', '메일 연결', '4', THREAD[2]], ['n5', '테스트 후 켜기', '5', THREAD[4]]])}
+    <div class="sheet"><ol class="steps">
+      <li><div><b>n8n 클라우드 무료 체험에 가입합니다.</b><p class="small muted"><a href="https://n8n.io" target="_blank" rel="noopener">n8n.io</a>에서 가입하세요. 체험 기간과 요금은 바뀔 수 있으니 가입 화면에서 확인하세요.</p></div></li>
+      <li><div><b>새 워크플로를 열고 아래 내용을 빈 캔버스에 붙여넣습니다 (Ctrl+V).</b><p class="small muted">블록 네 개가 선으로 이어진 채 나타나요.</p>${copyBox('n8n-a', n8nBrief())}</div></li>
+      <li><div><b>Google Sheets 블록에 계정을 연결하고 미션 7의 시트 주소를 넣습니다.</b><p class="small muted">버전에 따라 시트를 목록에서 다시 골라야 할 수 있어요.</p></div></li>
+      <li><div><b>Gmail 블록도 연결하고, 받는 사람에 내 메일 주소를 적습니다.</b></div></li>
+      <li><div><b>"Test workflow"로 메일이 오는지 확인한 뒤 오른쪽 위 스위치로 켭니다.</b><p class="small muted">시간대는 Settings에서 Asia/Seoul로 맞추세요.</p></div></li>
+    </ol></div>`;
+  return `
+    <div class="sheet"><p>엉킴의 출발점은 <b>새 소식이 메일로 제각각 들어온다</b>는 점이었죠. 채용 메일이 오면 AI가 읽고 회사·단계·날짜를 뽑아 시트에 넣게 합니다. 흩어지는 입구 자체를 막는 거예요.</p></div>
+    <div class="blocks4"><div><span class="role-tag" style="--c:${THREAD[1]}">계기</span>Gmail Trigger<span class="faint small">채용 메일 도착</span></div><div><span class="role-tag" style="--c:${THREAD[0]}">AI</span>LLM Chain + Claude<span class="faint small">일정 뽑기</span></div><div><span class="role-tag" style="--c:${THREAD[3]}">규칙</span>Code<span class="faint small">시트 한 줄로</span></div><div><span class="role-tag" style="--c:${THREAD[2]}">출력</span>Google Sheets<span class="faint small">지원현황에 추가</span></div></div>
+    ${checklist('도전 과제 진행', '메일을 AI가 정리', [['m1', 'API 키 준비', '1', THREAD[1]], ['m2', '블록 붙여넣기', '2', THREAD[0]], ['m3', '계정 연결', '3', THREAD[3]], ['m4', '테스트 메일로 새 줄 확인', '4', THREAD[2]]])}
+    <div class="sheet"><ol class="steps">
+      <li><div><b>Anthropic API 키를 준비합니다.</b><p class="small muted"><a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>에서 발급합니다. 사용량만큼 요금이 나가요.</p></div></li>
+      <li><div><b>새 워크플로에 아래 내용을 붙여넣습니다.</b><p class="small muted">일부 블록이 빨간색이면 그 블록을 열어 설정을 다시 골라 주세요.</p>${copyBox('n8n-b', n8nMail())}</div></li>
+      <li><div><b>Gmail Trigger, Claude 모델, Google Sheets에 계정과 API 키를 연결합니다.</b></div></li>
+      <li><div><b>나에게 테스트 메일을 보내고 "Test workflow"를 누릅니다.</b><p class="small muted">예: 제목 "[파란은행] 1차 전형 결과 발표 안내", 내용 "결과는 ${fmtDate(5)}에 확인하실 수 있습니다." 시트에 새 줄이 생기면 성공이에요.</p></div></li>
+      <li><div><b>생각해 보기: 사람은 이제 무엇을 하나요?</b><p class="small muted">AI가 뽑은 줄이 맞는지 아침 브리핑에서 확인하고, 무엇을 먼저 할지 결정합니다.</p></div></li>
+    </ol></div>`;
+};
+function m8(){
+  return `${head(8, 'n8n으로 같은 설계를 블록으로 만드세요', 'n8n은 블록을 선으로 이어 자동화를 만드는 도구예요. 먼저 미션 7과 같은 아침 브리핑을 만들고, 도전 과제로 AI가 채용 메일을 읽어 시트를 채우게 합니다.')}
+  ${pillTabs('tab8', [['brief', '기본: 아침 브리핑'], ['mail', '도전: 메일을 AI가 정리']])}
+  ${why(8)}${foot(8)}`;
+}
+
+function m9(){
+  const r = S.reflect;
+  return `${head(9, '기록장을 정리하세요', '오늘 푼 실타래를 한 장으로 남깁니다. 마지막 질문이 가장 중요해요. 같은 방법을 회사 업무에 옮겨 보는 연습이에요.')}
+  <div class="sheet"><div class="spread"><h3>돌아보기</h3>${fillBtn(9)}</div>
+    <label class="f">처음 엉켜 있던 생각과 지금 정의한 문제는 어떻게 다른가요?<textarea class="inp" data-bind="reflect.learn" data-live="m9" placeholder="예: 시간이 문제인 줄 알았는데 정보가 흩어진 게 문제였다">${esc(r.learn)}</textarea></label>
+    <label class="f">회사에서 "데이터가 없어서 문제를 모르겠다"는 말이 나오면, 어떤 질문부터 정하겠어요?<textarea class="inp" data-bind="reflect.data" data-live="m9" placeholder="예: 요청이 어디로 들어오는지, 그중 무엇이 확실하지 않은지부터 센다">${esc(r.data)}</textarea></label>
+    <label class="f">회사에서 이렇게 엉킨 상황이 생기면, 무엇부터 꺼내고 어떤 축으로 나눠 보겠어요?<textarea class="inp" data-bind="reflect.work" data-live="m9" placeholder="예: 여러 거래처 요청을 고객 × 단계 표로 나눠 본다">${esc(r.work)}</textarea></label></div>
+  <div class="sheet"><div class="spread"><h3>내 문제해결 기록</h3><button class="btn" data-act="download" id="dl-btn" hidden>.md 파일로 저장</button></div>
+    ${copyBox('record', recordText(), true)}<p class="status" id="toast" aria-live="polite"></p></div>
+  ${why(9)}${foot(9)}`;
+}
+
+const MOUNT = {0: mount0, 1: mount1, 2: mount2, 3: mount3};
+
+/* ================= 렌더 ================= */
+const pad2 = i => String(i).padStart(2, '0');
+function buildRail(){
+  $('#side').innerHTML = `<button class="mark" data-act="go" data-to="0" aria-label="처음 화면으로">실</button>
+    <ol>${M.map((m, i) => `<li><button data-act="go" data-to="${i}" aria-label="${pad2(i)} ${esc(m.name)}"><span>${pad2(i)}</span><span class="nm">${esc(m.name)}</span></button></li>`).join('')}</ol>
+    <div class="count"><b id="side-n">00</b>/ ${pad2(M.length - 1)}<br><button data-act="reset" style="margin-top:8px">RESET</button></div>`;
+  $('#topbar').innerHTML = `<div class="in"><span class="now" id="top-now"></span><button class="menu-btn" data-act="menu" aria-expanded="false" aria-controls="menu">MENU</button></div><div class="progress"><i id="top-prog"></i></div>`;
+  $('#menu').innerHTML = `<div class="spread"><span class="label">미션 목록</span><button class="btn quiet" data-act="menu-close">닫기</button></div>
+    <ol>${M.map((m, i) => `<li><button data-act="go" data-to="${i}"><span>${pad2(i)}</span>${esc(m.name)}</button></li>`).join('')}</ol>
+    <div class="row" style="margin-top:14px"><button class="btn quiet" data-act="reset">처음부터 다시 하기</button></div>`;
+}
+function updateRail(){
+  $('#side-n').textContent = pad2(S.cur);
+  $('#top-now').innerHTML = `<b>${pad2(S.cur)}</b> / ${pad2(M.length - 1)} · ${esc(M[S.cur].name)}`;
+  $('#top-prog').style.width = `${S.cur / (M.length - 1) * 100}%`;
+  document.querySelectorAll('#side ol button, #menu ol button').forEach(b => {
+    const i = +b.dataset.to; b.classList.toggle('done', !!S.done[i] && i !== S.cur);
+    if (i === S.cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+  });
+}
+function openMenu(open){
+  $('#menu').classList.toggle('open', open); $('#scrim').classList.toggle('open', open);
+  $('.menu-btn')?.setAttribute('aria-expanded', String(open));
+  if (open) $('#menu button[aria-current]')?.focus();
+}
+function goNext(){ if (S.cur < M.length - 1){ S.done[S.cur] = true; S.cur++; render(true); } }
+function goPrev(){ if (S.cur > 0){ S.cur--; render(true); } }
+function render(scroll){
+  if (!M[S.cur]) S.cur = 0;
+  updateRail();
+  $('#main').innerHTML = M[S.cur].render();
+  mountAll($('#main'));
+  MOUNT[S.cur]?.();
+  const c = $('#chat-log'); if (c) c.scrollTop = c.scrollHeight;
+  if (S.cur === 9){
+    if (window.claude?.use) window.claude.use('downloads').then(dl => { if (dl && $('#dl-btn')) $('#dl-btn').hidden = false; }).catch(() => {});
+    else if ($('#dl-btn')) $('#dl-btn').hidden = false;
+  }
+  if (scroll) window.scrollTo({top: 0, behavior: reduced() ? 'auto' : 'smooth'});
+  save();
+}
+
+/* ================= 이벤트 ================= */
+let armed = null;
+const disarmBtn = () => { if (armed){ armed.classList.remove('armed'); armed.textContent = armed.dataset.label; armed = null; } };
+function addCo(){
+  const box = $('#co-in'), v = box.value.trim(); if (!v || v === COMMON || S.companies.includes(v)) { box.value = ''; return; }
+  S.companies.push(v); render(); $('#co-in')?.focus();
+}
+function m3go(i){
+  S.m3i = Math.max(0, Math.min(S.notes.length - 1, i)); save();
+  $('#deck').innerHTML = deckHTML();
+}
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const act = el.dataset.act;
+  if (armed && armed !== el) disarmBtn();
+  switch (act){
+    case 'go': openMenu(false); S.cur = Number(el.dataset.to); render(true); break;
+    case 'next': goNext(); break;
+    case 'menu': openMenu(!$('#menu').classList.contains('open')); break;
+    case 'menu-close': openMenu(false); break;
+    case 'sug': sendChat(el.textContent); break;
+    case 'fill': {
+      const step = Number(el.dataset.step);
+      if (wouldOverwrite(step) && armed !== el){ el.dataset.label = el.textContent; el.textContent = '한 번 더 누르면 민지 예시로 바뀌어요'; el.classList.add('armed'); armed = el; break; }
+      armed = null; fill(step); break; }
+    case 'reset':
+      if (armed !== el){ el.dataset.label = el.textContent; el.textContent = '한 번 더 누르면 모두 지워져요'; el.classList.add('armed'); armed = el; break; }
+      armed = null; S = blank(); picked = null; render(true); break;
+    case 'addco': addCo(); break;
+    case 'delco': S.companies = S.companies.filter(c => c !== el.dataset.co); S.notes.forEach(n => { if (n.co === el.dataset.co) n.co = ''; }); render(); break;
+    case 'setco': {
+      const n = picked && noteOf(picked); if (!n) break;
+      n.co = n.co === el.dataset.co ? '' : el.dataset.co; save();
+      el.parentElement.querySelectorAll('.u019-chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.co === n.co)));
+      const card = document.querySelector(`.u255-cd[data-id="${n.id}"]`); if (card) paintTag(card, n);
+      if ($('#matrix')) $('#matrix').innerHTML = matrixHTML();
+      break; }
+    case 'm3go': m3go(+el.dataset.i); break;
+    case 'where': {
+      const n = S.notes[Math.min(S.m3i || 0, S.notes.length - 1)], v = el.dataset.v;
+      n.where = (n.where || []).includes(v) ? n.where.filter(x => x !== v) : [...(n.where || []), v]; save();
+      el.setAttribute('aria-pressed', String(n.where.includes(v)));
+      const dots = el.closest('.u019').querySelectorAll('.u019-dots i'); dots.forEach((d, k) => d.classList.toggle('on', k < n.where.length));
+      el.closest('.u019').querySelector('.u019-cnt > span:last-child').textContent = `${n.where.length}곳`;
+      refreshKnot(); break; }
+    case 'sure': {
+      const i = Math.min(S.m3i || 0, S.notes.length - 1), n = S.notes[i];
+      n.sure = n.sure === el.dataset.v ? '' : el.dataset.v; save();
+      el.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === n.sure)));
+      document.querySelectorAll('.bead')[i]?.setAttribute('class', `bead ${n.sure} cur`);
+      refreshKnot();
+      if (n.sure && i < S.notes.length - 1) setTimeout(() => { if (S.cur === 3 && (S.m3i || 0) === i) m3go(i + 1); }, reduced() ? 0 : 450);
+      break; }
+    case 'type': S.why.type = S.why.type === el.dataset.v ? '' : el.dataset.v; save();
+      document.querySelectorAll('.type').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === S.why.type)));
+      $('#dir').innerHTML = S.why.type ? `<div class="dir"><b>${S.why.type} 문제라면:</b> ${esc(TYPES[S.why.type].dir)}</div>` : '';
+      break;
+    case 'hint': runHint(el); break;
+    case 'send': sendChat(); break;
+    case 'stop': ctl?.abort(); break;
+    case 'chatreset': S.chat = []; render(); break;
+    case 'gen': genCode(el); break;
+    case 'download': {
+      try {
+        if (window.claude?.use){ const dl = await window.claude.use('downloads'); await dl.save({filename: '문제해결-기록.md', data: recordText()}); }
+        else {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(new Blob([recordText()], {type: 'text/markdown;charset=utf-8'}));
+          a.download = 'siltarae-record.md'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+        }
+        toast('저장했어요.');
+      }
+      catch { toast('저장하지 못했어요. 복사 버튼을 써 주세요.'); }
+      break; }
+  }
+});
+$('#main').addEventListener('keydown', e => {
+  if (e.isComposing || e.key !== 'Enter') return;
+  if (e.target.id === 'co-in'){ e.preventDefault(); addCo(); }
+  else if (e.target.id === 'chat-in' && !e.shiftKey){ e.preventDefault(); sendChat(); }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('#menu').classList.contains('open')) { openMenu(false); $('.menu-btn')?.focus(); return; }
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || e.isComposing) return;
+  if (e.target.closest?.('input,textarea,select,[contenteditable],.u255-cd,.u039-tab')) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+});
+
+buildRail();
+render();
+})();
+
+</script>

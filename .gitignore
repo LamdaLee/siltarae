@@ -1,0 +1,6 @@
+# 원본 데이터·글꼴 파일은 올리지 않음
+*.xlsx
+*.ttf
+*.otf
+__pycache__/
+dist/

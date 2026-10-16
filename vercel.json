@@ -1,0 +1,5 @@
+{
+  "buildCommand": "bash scripts/build-web.sh",
+  "outputDirectory": "dist",
+  "framework": null
+}
