@@ -845,12 +845,14 @@ let samplePromise = null;
 const getSample = () => (samplePromise ||= (window.claude?.use ? window.claude.use('sample').catch(() => null) : Promise.resolve(webSample)));
 
 /* Claude 밖(일반 웹사이트)에서는 /api/ai(OpenAI)를 부르고, 키가 없거나 연결이 안 되면 체험용 예시 답변을 보여 준다. */
+/* shaula.kr/siltarae 처럼 다른 경로 아래에서 열려도 같은 배포의 /api/ai 로 가도록, 지금 페이지 경로를 앞에 붙인다. */
+const AI_URL = location.pathname.replace(/\/(index\.html)?$/, '') + '/api/ai';
 const aiErr = (code, text = '') => Object.assign(new Error(code), {code, text});
 async function webSample(input, {signal, onText, kind = 'coach'} = {}){
   const messages = typeof input === 'string' ? [{role: 'user', content: input}] : input;
   let res = null;
   if (location.protocol.startsWith('http')){
-    try { res = await fetch('/api/ai', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({kind, messages}), signal}); }
+    try { res = await fetch(AI_URL, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({kind, messages}), signal}); }
     catch (e){ if (signal?.aborted) throw aiErr('cancelled'); res = null; }
   }
   if (res?.status === 429) throw aiErr('rate_limited');
